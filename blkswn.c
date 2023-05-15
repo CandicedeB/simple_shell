@@ -1,10 +1,10 @@
 #include <stdio.h>
 /**
- * main - Entry point
+ * leap_log - Entry point
  *
  * Return: 0 Success
  */
-int main(void)
+int leap_log(void)
 {
 	printf("Welcome, To Our Simple_Shell World!\n");
 	return (0);
