@@ -70,13 +70,14 @@ size_t print_linked_list(const list_t *head)
 {
 	size_t list_size = 0;
 	/* loop through each node and print the number and string value */
-	for (const list_t *current = head; current; current = current->next)
+	while (head)
 	{
 		_puts(convert_number(current->value, 10, 0));
 		_putchar(':');
 		_putchar(' ');
 		_puts(current->text ? current->text : "(nil)");
 		_puts("\n");
+		head = head->next
 		list_size++;
 	}
 	return (list_size);
@@ -91,13 +92,14 @@ size_t print_linked_list(const list_t *head)
  */
 list_t *find_node_with_prefix(list_t *head, char *prefix, char next_char)
 {
-	char *match_ptr = NULL;
+	char *ptr = NULL;
 	/* Loop through each node and check if the string starts with the prefix */
-	for (list_t *current = head; current; current = current->next)
+	while (head)
 	{
-		match_ptr = starts_with(current->text, prefix);
-		if (match_ptr && ((next_char == -1) || (*match_ptr == next_char)))
-			return (current);
+		ptr = starts_with(head->text, prefix);
+		if (ptr && ((next_char == -1) || (*ptr == next_char)))
+			return (head);
+		head = head->next;
 	}
 	return (NULL);
 }
@@ -112,10 +114,11 @@ ssize_t get_node_index(list_t *head, list_t *node)
 {
 	size_t index = 0;
 	/* loop through each node and check if it matches with each node */
-	for (list_t *current = head; current; current = current->next)
+	while (head)
 	{
-		if (current == node)
+		if (head == node)
 			return (index);
+		head = head->next;
 		index++;
 	}
 	return (-1);

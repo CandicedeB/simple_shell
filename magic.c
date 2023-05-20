@@ -8,7 +8,7 @@
  * Return: char
  */
 
-char *_strdup(char *text)
+char *_strdup(const char *text)
 {
 	int len = 0, i;
 	char *copy;
