@@ -65,7 +65,7 @@ list_t *add_node_end(list_t **head, const char *text)
 		return (NULL);
 	}
 	/* Count the number of characters within square brackets */
-	new->len = _strlen(text);
+	new->value = _strlen(text);
 	new->next = NULL;
 	/* If the list is empty, the new node becomes the head */
 	if (!*head)

@@ -3,6 +3,9 @@
 
 #define MAX_ARGS 64
 #define BUFFER 1024 /* define constant buffer of 1024 bytes */
+#define WRITE_BUFFER 1024
+#define READ_BUFFER 1024
+#define BUFFER_FLUSHER -1
 
 /* Library Used */
 #include <stdio.h>
@@ -82,7 +85,7 @@ char *sub_search(const char *text, const char *substr); /* sublove.c */
 char *_strcpy(char *dest, char *src); /* copycat.c */
 char *_strdup(const char *text); /* magic.c */
 void _puts(char *); /* bohemRhapsody.c */
-int _putchar(char c);
+int _putchar(char);
 list_t *add_node(list_t **head, const char *text, int len); /* addict.c */
 list_t *add_node_end(list_t **head, const char *text);
 size_t print_list_str(const list_t *h);

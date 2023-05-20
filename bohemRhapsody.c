@@ -1,4 +1,4 @@
-#include "shell.h"
+#include ."shell.h"
 
 /**
  * _puts - Entry point
@@ -11,12 +11,13 @@ void _puts(char *text)
 {
 	int i = 0;
 
+	if (!text)
+		return;
 	while (text[i] != '\0')
 	{
 		_putchar(text[i]);
 		i++;
 	}
-	_putchar('\n');
 }
 
 /**
@@ -28,5 +29,15 @@ void _puts(char *text)
 
 int _putchar(char c)
 {
-	return (write(1, &c, 1));
+	static int j;
+	static char buf[WRITE_BUFFER];
+	
+	if (c == BUFFER_FLUSHER || j >= WRITE_BUFFER)
+	{
+		write(1, buf, j);
+		j = 0;
+	}
+	if (c != BUFFER_FLUSHER)
+		buf[j++] = c;
+	return (1);
 }
