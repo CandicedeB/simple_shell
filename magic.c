@@ -3,21 +3,21 @@
 /**
  * _strdup - Entry point
  * Description: Returns pointer to a newly allocated space
- * @str: Character
+ * @text: Character
  *
  * Return: char
  */
 
-char *_strdup(char *str)
+char *_strdup(char *text)
 {
 	int len = 0, i;
 	char *copy;
 
-	if (str == NULL)
+	if (text == NULL)
 	{
 		return (NULL);
 	}
-	while (str[len] != '\0')
+	while (text[len] != '\0')
 	{
 		len++;
 		/* This determines the length of the input string */
@@ -31,7 +31,7 @@ char *_strdup(char *str)
 	}
 	for (i = 0; i < len; i++)
 	{
-		copy[i] = str[i];
+		copy[i] = text[i];
 		/* This copies input string to the new string */
 	}
 	copy[len] = '\0';

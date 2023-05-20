@@ -19,7 +19,7 @@ size_t get_list_length(const node_c *head)
 }
 
 /**
- * convert_list_to_strings - Returns an array of strings of the list->str
+ * convert_list_to_strings - Returns an array of strings of the list->text
  * @head: pointer to head node in linked list
  * Return: Array of strings
  */
@@ -35,7 +35,7 @@ char **convert_list_to_strings(list_t *head)
 		return (NULL);
 	}
 	/* allocates memory for string arrays */
-	string_array = malloc(sizeof(char *) * (num_node + 1));
+	strings_array = malloc(sizeof(char *) * (num_nodes + 1));
 	if (!strings_array)
 	{
 		return (NULL);
@@ -43,7 +43,7 @@ char **convert_list_to_strings(list_t *head)
 	/* loop through each node and copy string to string array */
 	for (j = 0; current_node; current_node = current_node->next, j++)
 	{
-		string = malloc(_strlen(current_node->str) + 1);
+		string = malloc(_strlen(current_node->text) + 1);
 		if (!string)
 		{
 			/* if memory allocation fails. free prev allocated memory, return NULL */
@@ -53,7 +53,7 @@ char **convert_list_to_strings(list_t *head)
 				free(strings_array);
 				return (NULL);
 			}
-			string = _strcpy(string, current_node->str);
+			string = _strcpy(string, current_node->text);
 			strings_array[j] = string;
 		}
 		/* set the last element of the strings_array to NULL */
@@ -72,10 +72,10 @@ size_t print_linked_list(const list_t *head)
 	/* loop through each node and print the number and string value */
 	for (const list_t *current = head; current; current = current->next)
 	{
-		_puts(convert_number(current->num, 10, 0));
+		_puts(convert_number(current->value, 10, 0));
 		_putchar(':');
 		_putchar(' ');
-		_puts(current->str ? current->str : "(nil)");
+		_puts(current->text ? current->text : "(nil)");
 		_puts("\n");
 		list_size++;
 	}
@@ -95,7 +95,7 @@ list_t *find_node_with_prefix(list_t *head, char *prefix, char next_char)
 	/* Loop through each node and check if the string starts with the prefix */
 	for (list_t *current = head; current; current = current->next)
 	{
-		match_ptr = starts_with(current->str, prefix);
+		match_ptr = starts_with(current->text, prefix);
 		if (match_ptr && ((next_char == -1) || (*match_ptr == next_char)))
 			return (current);
 	}

@@ -78,13 +78,13 @@ int isintact(info_t *info); /* shocked.c */
 int _strlen(char *s); /* shorty.c */
 int _strcmp(char *s1, char *s2); /* strumming.c */
 char *_strcat(char *dest, char *src); /* concatMeMaybe.c */
-char *sub_search(const char *str, const char *substr); /* sublove.c */
+char *sub_search(const char *text, const char *substr); /* sublove.c */
 char *_strcpy(char *dest, char *src); /* copycat.c */
-char *_strdup(char *str); /* magic.c */
-void _puts(char *str); /* bohemRhapsody.c */
+char *_strdup(char *text); /* magic.c */
+void _puts(char *text); /* bohemRhapsody.c */
 int _putchar(char c);
-list_t *add_node(list_t **head, const char *str, int len); /* addict.c */
-list_t *add_node_end(list_t **head, const char *str);
+list_t *add_node(list_t **head, const char *text, int len); /* addict.c */
+list_t *add_node_end(list_t **head, const char *text);
 size_t print_list_str(const list_t *h);
 int delete_node_at_index(list_t **head, unsigned int index);
 free_list(list_t *head);

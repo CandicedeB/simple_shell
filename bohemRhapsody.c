@@ -3,17 +3,17 @@
 /**
  * _puts - Entry point
  * Description: Prints a string to stdout
- * @str: String data type
- * Return: str
+ * @text: String data type
+ * Return: text
  */
 
-void _puts(char *str)
+void _puts(char *text)
 {
 	int i = 0;
 
-	while (str[i] != '\0')
+	while (text[i] != '\0')
 	{
-		_putchar(str[i]);
+		_putchar(text[i]);
 		i++;
 	}
 	_putchar('\n');

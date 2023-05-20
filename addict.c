@@ -5,13 +5,13 @@
  * add_node - Entry point
  * Description: Adds new node at the beginning of the list
  * @head: Pointer to the head of the list_t list
- * @str: String added to the list_t list
+ * @text: String added to the list_t list
  * @len: Length used by list
  *
  * Return: the address of the new element, or NULL if it failed
  */
 
-list_t *add_node(list_t **head, const char *str, int len)
+list_t *add_node(list_t **head, const char *text, int len)
 {
 	list_t *new;
 
@@ -21,15 +21,15 @@ list_t *add_node(list_t **head, const char *str, int len)
 		return (NULL);
 	}
 	/* Duplicate the string */
-	new->str = _strdup(str);
-	if (new->str == NULL)
+	new->text = _strdup(text);
+	if (new->text == NULL)
 	{
 		free(new);
 		return (NULL);
 	}
 	/* Count the number of characters within square brackets */
 	len = 0;
-	while (str[len])
+	while (text[len])
 		len++;
 	/* Set next pointer of new node to current head */
 	new->next = *head;
@@ -44,11 +44,11 @@ list_t *add_node(list_t **head, const char *str, int len)
  * add_node_end - Entry point
  * Description: Adds new node at the end of a list_t list
  * @head: Pointer to pointer to the head node of the list
- * @str: String stored in the new node
+ * @text: String stored in the new node
  * Return: Address of the new element, or NULL if it failed
  */
 
-list_t *add_node_end(list_t **head, const char *str)
+list_t *add_node_end(list_t **head, const char *text)
 {
 	list_t *new, *current;
 
@@ -58,14 +58,14 @@ list_t *add_node_end(list_t **head, const char *str)
 	if (!new)
 		return (NULL);
 	/* Duplicate the string */
-	new->str = _strdup(str);
-	if (!new->str)
+	new->text = _strdup(text);
+	if (!new->text)
 	{
 		free(new);
 		return (NULL);
 	}
 	/* Count the number of characters within square brackets */
-	new->len = _strlen(str);
+	new->len = _strlen(text);
 	new->next = NULL;
 	/* If the list is empty, the new node becomes the head */
 	if (!*head)
@@ -97,7 +97,7 @@ size_t print_list_str(const list_t *h)
 
 	while (h)
 	{
-		_puts(h->str ? h->str : "(nil)");
+		_puts(h->text ? h->text : "(nil)");
 		_puts("\n");
 		count++;
 		h = h->next;
@@ -161,7 +161,7 @@ void free_list(list_t *head)
 	while (head)
 	{
 		current = head->next;
-		free(head->str);
+		free(head->text);
 		free(head);
 		head = current;
 	}
