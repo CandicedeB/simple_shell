@@ -108,16 +108,16 @@ size_t print_list_str(const list_t *h)
 
 /**
  * delete_node_at_index - Entry point
- * Description: Deletes the node at index index of a listint_t linked list.
+ * Description: Deletes the node at index index of a list_t linked list.
  * @head: Pointer to pointer of first node in linked list
  * @index: Index of the node that should be deleted.
  *
  * Return: 1 if it succeeded, -1 if it failed
  */
 
-int delete_node_at_index(listint_t **head, unsigned int index)
+int delete_node_at_index(list_t **head, unsigned int index)
 {
-	listint_t *temp, *current;
+	list_t *temp, *current;
 	unsigned int i;
 	/* Where i is the node */
 

@@ -66,11 +66,11 @@ char **convert_list_to_strings(list_t *head)
  * @head: Pointer to the head node of the linked list
  * Return: size of linked list
  */
-size_t print_linked_list(const node_t *head)
+size_t print_linked_list(const list_t *head)
 {
 	size_t list_size = 0;
 	/* loop through each node and print the number and string value */
-	for (const node_t *current = head; current; current = current->next)
+	for (const list_t *current = head; current; current = current->next)
 	{
 		_puts(convert_number(current->num, 10, 0));
 		_putchar(':');

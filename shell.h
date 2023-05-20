@@ -86,13 +86,13 @@ int _putchar(char c);
 list_t *add_node(list_t **head, const char *str, int len); /* addict.c */
 list_t *add_node_end(list_t **head, const char *str);
 size_t print_list_str(const list_t *h);
-int delete_node_at_index(listint_t **head, unsigned int index);
+int delete_node_at_index(list_t **head, unsigned int index);
 free_list(list_t *head);
 size_t list_len(const list_t *h);
 ssize_t get_node_index(list_t *head, list_t *node);
 list_t *find_node_with_prefix(list_t *head, char *prefix, char next_char);
-size_t print_linked_list(const node_t *head);
-char **convert_list_to_strings(list_c *head);
+size_t print_linked_list(const list_t *head);
+char **convert_list_to_strings(list_t *head);
 size_t list_length(const list_t *head);
 
 
