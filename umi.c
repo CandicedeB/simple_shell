@@ -4,14 +4,15 @@
  * @head: pointer to head node in linked list
  * Return: number of nodes in linked list
  */
-size_t get_list_length(const node_c *head)
+size_t get_list_length(const list_t *head)
 {
 	size_t matrix = 0;
 
 	/* Loop through list until end is reached */
-	for (const node_c *current = head; current != NULL; current = current->next)
+	while (head)
 	{
 		/* increment the matrix for every node */
+		head = head->next;
 		matrix++;
 	}
 	/* return final matrix */
@@ -72,12 +73,12 @@ size_t print_linked_list(const list_t *head)
 	/* loop through each node and print the number and string value */
 	while (head)
 	{
-		_puts(convert_number(current->value, 10, 0));
+		_puts(convert_number(head->value, 10, 0));
 		_putchar(':');
 		_putchar(' ');
-		_puts(current->text ? current->text : "(nil)");
+		_puts(head->text ? head->text : "(nil)");
 		_puts("\n");
-		head = head->next
+		head = head->next;
 		list_size++;
 	}
 	return (list_size);
