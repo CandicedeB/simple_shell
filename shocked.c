@@ -9,6 +9,6 @@
 
 int isintact(info_t *info)
 {
-	/* Check if STDIN is a terminal and if the readfd is <= 2 */
-	return (isatty(STDIN_FILENO) && info->readfd <= 2);
+	/* Check if STDIN is a terminal and if the readFd is <= 2 */
+	return (isatty(STDIN_FILENO) && info->readFd <= 2);
 }

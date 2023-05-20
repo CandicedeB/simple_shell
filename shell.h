@@ -81,7 +81,7 @@ char *_strcat(char *dest, char *src); /* concatMeMaybe.c */
 char *sub_search(const char *text, const char *substr); /* sublove.c */
 char *_strcpy(char *dest, char *src); /* copycat.c */
 char *_strdup(const char *text); /* magic.c */
-void _puts(char *text); /* bohemRhapsody.c */
+void _puts(char *); /* bohemRhapsody.c */
 int _putchar(char c);
 list_t *add_node(list_t **head, const char *text, int len); /* addict.c */
 list_t *add_node_end(list_t **head, const char *text);

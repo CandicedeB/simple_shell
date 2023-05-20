@@ -33,7 +33,7 @@ list_t *add_node(list_t **head, const char *text, int len)
 		len++;
 	/* Set next pointer of new node to current head */
 	new->next = *head;
-	new->len = len;
+	new->value = len;
 	/* Set head to point to the new node */
 	*head = new;
 
@@ -157,7 +157,7 @@ int delete_node_at_index(list_t **head, unsigned int index)
 void free_list(list_t *head)
 {
 	list_t *current;
-	
+
 	while (head)
 	{
 		current = head->next;
