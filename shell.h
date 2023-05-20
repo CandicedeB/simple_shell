@@ -88,7 +88,7 @@ void _puts(char *); /* bohemRhapsody.c */
 int _putchar(char);
 list_t *add_node(list_t **head, const char *text, int len); /* addict.c */
 list_t *add_node_end(list_t **head, const char *text);
-size_t print_list_str(const list_t *h);
+size_t print_list_str(const list_t *head);
 int delete_node_at_index(list_t **head, unsigned int index);
 void free_list(list_t *head);
 size_t list_len(const list_t *h);

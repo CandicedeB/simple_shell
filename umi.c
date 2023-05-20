@@ -69,7 +69,7 @@ char **convert_list_to_strings(list_t *head)
  */
 size_t print_linked_list(const list_t *head)
 {
-	size_t list_size = 0;
+	size_t j = 0;
 	/* loop through each node and print the number and string value */
 	while (head)
 	{
@@ -79,9 +79,9 @@ size_t print_linked_list(const list_t *head)
 		_puts(head->text ? head->text : "(nil)");
 		_puts("\n");
 		head = head->next;
-		list_size++;
+		j++;
 	}
-	return (list_size);
+	return (j);
 }
 
 /**
