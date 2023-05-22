@@ -59,12 +59,14 @@ char **convert_list_to_strings(list_t *head)
 		}
 		/* set the last element of the strings_array to NULL */
 		strings_array[j] = NULL;
-		return (strings_array);
 	}
+	return (strings_array);
 }
+
 /**
  * print_linked_list - prints all elements of a linked list
  * @head: Pointer to the head node of the linked list
+ * @convert_number: Character
  * Return: size of linked list
  */
 size_t print_linked_list(const list_t *head)
@@ -89,6 +91,7 @@ size_t print_linked_list(const list_t *head)
  * @head: Pointer to the head node of the linked list
  * @prefix: string to match
  * @next_char: The next character after prefix to match
+ * @starts_with: next character
  * Return: matched node or NULL
  */
 list_t *find_node_with_prefix(list_t *head, char *prefix, char next_char)
@@ -97,7 +100,7 @@ list_t *find_node_with_prefix(list_t *head, char *prefix, char next_char)
 	/* Loop through each node and check if the string starts with the prefix */
 	while (head)
 	{
-		ptr = starts_with(head->text, prefix);
+		*ptr = starts_with(head->text, prefix);
 		if (ptr && ((next_char == -1) || (*ptr == next_char)))
 			return (head);
 		head = head->next;
