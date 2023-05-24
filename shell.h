@@ -6,8 +6,8 @@
 #define WRITE_BUFFER 1024
 #define READ_BUFFER 1024
 #define BUFFER_FLUSHER -1
-#define CONVERT_UNSIGNED
-#define CONVERT_LOWERCASE
+#define CONVERT_UNSIGNED 2
+#define CONVERT_LOWERCASE 1
 
 /* Library Used */
 #include <stdio.h>
