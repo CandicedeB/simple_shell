@@ -101,7 +101,7 @@ void _eputs(char *);
 int _print_d(int, int);
 int _eputchar(char n);
 void leap_samo(info_t *skip, char *jazz);
-int crayon(int ima, int less);
+int print_d(int ima, int less);
 char *convert_number(long int num, int crackle, int snap);
 void gene(char *count);
 list_t *add_node(list_t **head, const char *text, int len);
