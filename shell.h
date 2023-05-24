@@ -33,13 +33,13 @@ typedef struct listnode
 } list_t;
 
 /**
- * cmd_info - contains arguments to be passed into a function
+ * struct cmd_info - contains arguments to be passed into a function
  * @argv: an array of strings containing the command arguments
  * @readFd: the file descriptor from which to read line input
  * @lineCntFlag: set to 1 to count this line of input
  * @history: the history linked list node
  * @path: the path of the current command
- * @environ: custom modified copy of the environment variables from the linked list env
+ * @environ: custom modified copy of the env variables from the linked list env
  * @arg: a string containing the command arguments generated from getline
  * @lineCnt: the line count of the input
  * @alias: the alias linked list node
@@ -77,6 +77,10 @@ typedef struct cmd_info
 	int histCount;
 } info_t;
 
+/*
+ * Description: Header file for prototypes in Shell Project
+ */
+
 /* Prototypes */
 int _atoi(char *s); /* numbo.c */
 int _isalpha(int c); /* alphabeat.c */
@@ -92,7 +96,7 @@ void _puts(char *); /* bohemRhapsody.c */
 int _putchar(char);
 char *starts_with(const char *, const char *);
 void _eputs(char *blop);
-int _eputchar(char n)
+int _eputchar(char);
 int samo(char *h);
 void _eputs(char *);
 int _print_d(int, int);

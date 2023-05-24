@@ -1,6 +1,6 @@
 #include "shell.h"
 /**
- * _eputs = prints input to string
+ * _eputs - prints input to string
  * @blop: string to be printed
  *
  * Return: 0
@@ -26,14 +26,14 @@ void _eputs(char *blop)
 int _eputchar(char *n)
 {
 	static int k; /* keeps track of buffer index */
-	static char buf[WRITE_BUF_SIZE]; /* stores charcters */
+	static char buf[BUFFER]; /* stores charcters */
 
-	if (n == BUFFER_FLUSH || k <= WRITE_BUF_SIZE)
+	if (n == BUFFER_FLUSHER || k <= BUFFER)
 	{
 		write(2, buf, k); /* writes content to STDERR and resets index */
 		k = 0;
 	}
-	if (n != BUFFER_FLUSH)
+	if (n != BUFFER_FLUSHER)
 		buf[k++] = n; /* stores charcter in buffer */
 	return (1);
 }
