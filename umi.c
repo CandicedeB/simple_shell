@@ -90,7 +90,6 @@ size_t print_linked_list(const list_t *head)
  * @head: Pointer to the head node of the linked list
  * @prefix: string to match
  * @next_char: The next character after prefix to match
- * @starts_with: next character
  * Return: matched node or NULL
  */
 list_t *find_node_with_prefix(list_t *head, char *prefix, char next_char)

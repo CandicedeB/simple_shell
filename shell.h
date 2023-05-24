@@ -82,17 +82,17 @@ typedef struct cmd_info
  */
 
 /* Prototypes */
-int _atoi(char *s); /* numbo.c */
-int _isalpha(int c); /* alphabeat.c */
-int _separator(char c, char *separator); /* sepway.c */
-int isintact(info_t *info); /* shocked.c */
-int _strlen(const char *s); /* shorty.c */
-int _strcmp(char *s1, char *s2); /* strumming.c */
-char *_strcat(char *dest, char *src); /* concatMeMaybe.c */
-char *sub_search(const char *text, const char *substr); /* sublove.c */
-char *_strcpy(char *dest, char *src); /* copycat.c */
-char *_strdup(const char *text); /* magic.c */
-void _puts(char *); /* bohemRhapsody.c */
+int _atoi(char *s);
+int _isalpha(int c);
+int _separator(char c, char *separator);
+int isintact(info_t *info);
+int _strlen(const char *s);
+int _strcmp(char *s1, char *s2);
+char *_strcat(char *dest, char *src);
+char *sub_search(const char *text, const char *substr);
+char *_strcpy(char *dest, char *src);
+char *_strdup(const char *text);
+void _puts(char *);
 int _putchar(char);
 char *starts_with(const char *, const char *);
 void _eputs(char *blop);
@@ -105,7 +105,7 @@ void leap_samo(info_t *skip, char *jazz);
 int crayon(int ima, int less);
 char *convert_number(long int num, int crackle, int snap);
 void gene(char *count);
-list_t *add_node(list_t **head, const char *text, int len); /* addict.c */
+list_t *add_node(list_t- **head, const char *text, int len);
 list_t *add_node_end(list_t **head, const char *text);
 size_t print_list_str(const list_t *head);
 int delete_node_at_index(list_t **head, unsigned int index);
