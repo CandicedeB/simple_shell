@@ -23,12 +23,12 @@ void _eputs(char *blop)
  *
  * Return: Success 1, Error -1
  */
-int _eputchar(char *n)
+int _eputchar(char n)
 {
 	static int k; /* keeps track of buffer index */
 	static char buf[BUFFER]; /* stores charcters */
 
-	if (n == BUFFER_FLUSHER || k <= BUFFER)
+	if (n == BUFFER_FLUSHER || k >= BUFFER)
 	{
 		write(2, buf, k); /* writes content to STDERR and resets index */
 		k = 0;

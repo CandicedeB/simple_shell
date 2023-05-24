@@ -96,16 +96,15 @@ void _puts(char *);
 int _putchar(char);
 char *starts_with(const char *, const char *);
 void _eputs(char *blop);
-int _eputchar(char);
 int samo(char *h);
 void _eputs(char *);
 int _print_d(int, int);
-int _eputchar(char);
+int _eputchar(char n);
 void leap_samo(info_t *skip, char *jazz);
 int crayon(int ima, int less);
 char *convert_number(long int num, int crackle, int snap);
 void gene(char *count);
-list_t *add_node(list_t- **head, const char *text, int len);
+list_t *add_node(list_t **head, const char *text, int len);
 list_t *add_node_end(list_t **head, const char *text);
 size_t print_list_str(const list_t *head);
 int delete_node_at_index(list_t **head, unsigned int index);
@@ -116,6 +115,5 @@ list_t *find_node_with_prefix(list_t *head, char *prefix, char next_char);
 size_t print_linked_list(const list_t *head);
 char **convert_list_to_strings(list_t *head);
 size_t list_length(const list_t *head);
-
 
 #endif
