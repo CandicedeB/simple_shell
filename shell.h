@@ -6,6 +6,8 @@
 #define WRITE_BUFFER 1024
 #define READ_BUFFER 1024
 #define BUFFER_FLUSHER -1
+#define CONVERT_UNSIGNED
+#define CONVERT_LOWERCASE
 
 /* Library Used */
 #include <stdio.h>
@@ -86,6 +88,13 @@ char *_strcpy(char *dest, char *src); /* copycat.c */
 char *_strdup(const char *text); /* magic.c */
 void _puts(char *); /* bohemRhapsody.c */
 int _putchar(char);
+int samo(char *h);
+void _eputs(char *);
+int _eputchar(char);
+void leap_samo(info_t *skip, char *jazz);
+int crayon(int ima, int less);
+char *convert_number(long int num, int crackle, int snap);
+void gene(char *count);
 list_t *add_node(list_t **head, const char *text, int len); /* addict.c */
 list_t *add_node_end(list_t **head, const char *text);
 size_t print_list_str(const list_t *head);

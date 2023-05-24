@@ -66,7 +66,6 @@ char **convert_list_to_strings(list_t *head)
 /**
  * print_linked_list - prints all elements of a linked list
  * @head: Pointer to the head node of the linked list
- * @convert_number: Character
  * Return: size of linked list
  */
 size_t print_linked_list(const list_t *head)
