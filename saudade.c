@@ -23,7 +23,7 @@ void _eputs(char *blop)
  *
  * Return: Success 1, Error -1
  */
-int _eputchar(char n)
+int _eputchar(char *n)
 {
 	static int k; /* keeps track of buffer index */
 	static char buf[WRITE_BUF_SIZE]; /* stores charcters */
