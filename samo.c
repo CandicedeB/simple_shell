@@ -94,12 +94,12 @@ char *convert_number(long int num, int crackle, int snap)
 	char *ptr;
 	unsigned long i = num;
 
-	if (!(snap & CONVERT_UNSIGNED) && num < 0)
+	if (!(snap & CONVERT_UNSIGNED) && (num < 0))
 	{
 		i = -num;
 		time = '-';
 	}
-	array = snap & CONVERT_LOWERCASE ? "0123456789abcdef" : "0123456789ABCDEF";
+	array = (snap & CONVERT_LOWERCASE) ? "0123456789abcdef" : "0123456789ABCDEF";
 		ptr = &buf[49];
 	*ptr = '\0';
 

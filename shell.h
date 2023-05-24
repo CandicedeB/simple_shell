@@ -52,11 +52,13 @@ typedef struct listnode
  * @fname: the filename of the program
  * @errNum: the error code for exit() calls
  * @histCount: the history line number count
+ * @line_count: history of number count
  */
 typedef struct cmd_info
 {
 	char **argv;
 	int readFd;
+	unsigned int line_count;
 	int lineCntFlag;
 	list_t *history;
 	char *path;
@@ -88,8 +90,10 @@ char *_strcpy(char *dest, char *src); /* copycat.c */
 char *_strdup(const char *text); /* magic.c */
 void _puts(char *); /* bohemRhapsody.c */
 int _putchar(char);
+char *starts_with(const char *, const char *);
 int samo(char *h);
 void _eputs(char *);
+int _print_d(int, int);
 int _eputchar(char);
 void leap_samo(info_t *skip, char *jazz);
 int crayon(int ima, int less);

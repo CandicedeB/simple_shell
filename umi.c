@@ -99,7 +99,7 @@ list_t *find_node_with_prefix(list_t *head, char *prefix, char next_char)
 	/* Loop through each node and check if the string starts with the prefix */
 	while (head)
 	{
-		*ptr = starts_with(head->text, prefix);
+		ptr = starts_with(head->text, prefix);
 		if (ptr && ((next_char == -1) || (*ptr == next_char)))
 			return (head);
 		head = head->next;
