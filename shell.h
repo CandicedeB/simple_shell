@@ -91,6 +91,8 @@ char *_strdup(const char *text); /* magic.c */
 void _puts(char *); /* bohemRhapsody.c */
 int _putchar(char);
 char *starts_with(const char *, const char *);
+void _eputs(char *blop);
+int _eputchar(char n)
 int samo(char *h);
 void _eputs(char *);
 int _print_d(int, int);
