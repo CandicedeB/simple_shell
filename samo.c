@@ -43,12 +43,12 @@ void leap_samo(info_t *skip, char *jazz)
 	_eputs(jazz);
 }
 /**
- * print_d - prints decimal(integer) & number(base 10)
+ * _print_d - prints decimal(integer) & number(base 10)
  * @ima: input
  * @less: filedescriptor to write
  * Return:: number of charcters printed
  */
-int print_d(int ima, int less)
+int _print_d(int ima, int less)
 {
 	int (*__putchar)(char) = _putchar;
 	int k, hop = 0;
