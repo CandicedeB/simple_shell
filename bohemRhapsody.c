@@ -31,7 +31,7 @@ int _putchar(char c)
 {
 	static int j;
 	static char buf[WRITE_BUFFER];
-	
+
 	if (c == BUFFER_FLUSHER || j >= WRITE_BUFFER)
 	{
 		write(1, buf, j);
@@ -41,3 +41,4 @@ int _putchar(char c)
 		buf[j++] = c;
 	return (1);
 }
+
