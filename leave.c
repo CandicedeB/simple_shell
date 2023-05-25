@@ -19,7 +19,7 @@ char *_copyString(char *dest, char *place, int n)
 		dest[a] = place[a];
 		a++;
 	}
-	if (a < n)
+	if (a < n) /* instances where a is smaller than n, add NULL terminator */
 	{
 		b = a;
 		while (b < n)
@@ -45,17 +45,17 @@ char *concatenateStrings(char *dest, char *place, int n)
 
 	a = 0;
 	b = 0;
-	while (dest[a] != '\0')
+	while (dest[a] != '\0') /* locate first strings(dest) end */
 		a++;
 	while (place[b] != '\0' && b < n)
 	{
-		dest[a] = place[b];
+		dest[a] = place[b]; /* character from plae to dest added */
 		a++;
 		b++;
 	}
-	if (b < n)
+	if (b < n) /* if characters are still present after NULL terminator, add it */
 		dest[a] = '\0';
-	return (s);
+	return (s); /* return to original value of dest */
 }
 
 /**
@@ -69,8 +69,8 @@ char *strChr(char *s, char c)
 {
 	do {
 		if (*s == c)
-			return (s);
+			return (s); /* pointer back to detecter character memory location */
 	} while (*s++ != '\0');
 
-	return (NULL);
+	return (NULL); /* if string is not found then return to NULL */
 }
