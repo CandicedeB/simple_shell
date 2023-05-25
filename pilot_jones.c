@@ -28,7 +28,7 @@ int unsetAlias(info_t *data, char *txt)
 		return (1);
 	c = *q;
 	*q = 0;
-	ret = delete_node_at_index(&(data->alias),
+	ret = delNodeatIndex(&(data->alias),
 		get_node_index(data->alias, node_begins(data->alias, txt, -1)));
 	*q = c;
 	return (ret);

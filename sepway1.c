@@ -67,7 +67,7 @@ size_t displayList(const list_t *h)
 
 	while (h)
 	{
-		putin(chnageNum(h->num, 10, 0));
+		putin(changeNum(h->num, 10, 0));
 		_putchar(':');
 		_putchar(' ');
 		putin(h->txt ? h->txt : "(nil)");
@@ -92,7 +92,7 @@ list_t *node_begins(list_t *list, char *prefix, char c)
 
 	while (list)
 	{
-		q = beginWIth(list->txt, prefix);
+		q = beginWith(list->txt, prefix);
 		if (q && ((c == -1) || (*q == c)))
 			return (list);
 		list = list->next;

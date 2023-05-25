@@ -1,12 +1,12 @@
 #include "shell.h"
 
 /**
- * _erratoi - converts a string to an integer
+ * errAtoi - Convert a string to an integer
  * @s: the string to be converted
  * Return: 0 if no numbers in string, converted number otherwise
  *       -1 on error
  */
-int _erratoi(char *s)
+int errAtoi(char *s)
 {
 	int a = 0;
 	unsigned long int answer = 0;
@@ -29,11 +29,10 @@ int _erratoi(char *s)
 }
 
 /**
- * display_err - prints an error message
- * @data: the parameter & return data struct
- * @estr: string containing specified error type
- * Return: 0 if no numbers in string, converted number otherwise
- *        -1 on error
+ * display_err - Output an error message
+ * @data: the  parameter and return data struct
+ * @estr: string containing the specified error type
+ * Return: 0 on success, -1 on error
  */
 void display_err(info_t *data, char *estr)
 {
@@ -47,9 +46,9 @@ void display_err(info_t *data, char *estr)
 }
 
 /**
- * printDD - function prints a decimal (integer) number (base 10)
- * @input: the input
- * @fd: the filedescriptor to write to
+ * printDD - Displays a decimal (integer) number in base 10
+ * @input: the number to be displayed
+ * @fd: the file descriptor to write the output to
  *
  * Return: number of characters printed
  */
@@ -57,7 +56,7 @@ int printDD(int input, int fd)
 {
 	int (*__putchar)(char) = _putchar;
 	int a, count = 0;
-	unsigned int _abs_, current;
+	unsigned int _abs_, curr;
 
 	if (fd == STDERR_FILENO)
 		__putchar = eputword;
@@ -69,31 +68,31 @@ int printDD(int input, int fd)
 	}
 	else
 		_abs_ = input;
-	current = _abs_;
+	curr = _abs_;
 	for (a = 1000000000; a > 1; a /= 10)
 	{
 		if (_abs_ / a)
 		{
-			__putchar('0' + current / a);
+			__putchar('0' + curr / a);
 			count++;
 		}
-		current %= a;
+		curr %= a;
 	}
-	__putchar('0' + current);
+	__putchar('0' + curr);
 	count++;
 
 	return (count);
 }
 
 /**
- * chnageNum - converter function, a clone of itoa
- * @num: number
- * @base: base
+ * changeNum - Converts a number to a string representation
+ * @num: number to be converted
+ * @base: base for conversion
  * @flags: argument flags
  *
  * Return: string
  */
-char *chnageNum(long int num, int base, int flags)
+char *changeNum(long int num, int base, int flags)
 {
 	static char *array;
 	static char fender[50];
@@ -122,8 +121,8 @@ char *chnageNum(long int num, int base, int flags)
 }
 
 /**
- * vanishComments - function replaces first instance of '#' with '\0'
- * @buffed: address of the string to modify
+ * vanishComments - Replaces first instance of '#' with '\0'
+ * @buffed: address of the string to be changed
  *
  * Return: Always 0;
  */

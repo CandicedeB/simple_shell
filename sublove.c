@@ -1,13 +1,13 @@
 #include "shell.h"
 
 /**
- * get_history_file - gets the history file
+ * getHistoryFile - gets the history file
  * @data: parameter struct
  *
  * Return: allocated string containg history file
  */
 
-char *get_history_file(info_t *data)
+char *getHistoryFile(info_t *data)
 {
 	char *buffed, *dir;
 
@@ -33,7 +33,7 @@ char *get_history_file(info_t *data)
 int genHistory(info_t *data)
 {
 	ssize_t fd;
-	char *filename = get_history_file(data);
+	char *filename = getHistoryFile(data);
 	list_t *list = NULL;
 
 	if (!filename)
@@ -64,7 +64,7 @@ int cramHis(info_t *data)
 	int a, last = 0, linecount = 0;
 	ssize_t fd, rdlen, fsize = 0;
 	struct stat st;
-	char *buffed = NULL, *filename = get_history_file(data);
+	char *buffed = NULL, *filename = getHistoryFile(data);
 
 	if (!filename)
 		return (0);
@@ -97,7 +97,7 @@ int cramHis(info_t *data)
 	free(buffed);
 	data->histcount = linecount;
 	while (data->histcount-- >= JIST_OVERFLOW)
-		delete_node_at_index(&(data->history), 0);
+		delNodeatIndex(&(data->history), 0);
 	numKimbad(data);
 	return (data->histcount);
 }

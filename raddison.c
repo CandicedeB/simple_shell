@@ -1,12 +1,11 @@
 #include "shell.h"
 
 /**
- * get_environ - returns the string array copy of our environ
- * @data: Structure containing potential arguments. Used to maintain
- *          constant function prototype.
+ * getEnviron - obtains a copy of the string array 'environ'
+ * @data: Structure with potential arguments. Constant function prototype.
  * Return: Always 0
  */
-char **get_environ(info_t *data)
+char **getEnviron(info_t *data)
 {
 	if (!data->environ || data->env_changed)
 	{
@@ -18,11 +17,11 @@ char **get_environ(info_t *data)
 }
 
 /**
- * remEnv - Remove an environment variable
- * @data: Structure containing potential arguments. Used to maintain
- *        constant function prototype.
- *  Return: 1 on delete, 0 otherwise
- * @var: the string env var property
+ * remEnv - Deletes an environment variable
+ * @data:  Structure with potential arguments. Constant function prototype.
+ * @var: the environment variable to be deleted
+ * 
+ * Return: 1 if the variable is successfully removed, 0 otherwise
  */
 int remEnv(info_t *data, char *var)
 {
@@ -35,10 +34,10 @@ int remEnv(info_t *data, char *var)
 
 	while (list)
 	{
-		q = beginWIth(list->txt, var);
+		q = beginWith(list->txt, var);
 		if (q && *q == '=')
 		{
-			data->env_changed = delete_node_at_index(&(data->env), a);
+			data->env_changed = delNodeatIndex(&(data->env), a);
 			a = 0;
 			list = data->env;
 			continue;
@@ -50,12 +49,10 @@ int remEnv(info_t *data, char *var)
 }
 
 /**
- * fixEnv - Initialize a fresh environment variable,
- *             or modify an existing one
- * @data: Structure containing potential arguments. Used to maintain
- *        constant function prototype.
- * @var: the string env var property
- * @value: the string env var value
+ * fixEnv - Initializes a new environment variable or modifies an existing one
+ * @data: Structure with potential arguments. Constant function prototype.
+ * @var: the environment variable to initialize or modify
+ * @value: the value to assign to the environment variable
  *  Return: Always 0
  */
 int fixEnv(info_t *data, char *var, char *value)
@@ -76,7 +73,7 @@ int fixEnv(info_t *data, char *var, char *value)
 	list = data->env;
 	while (list)
 	{
-		q = beginWIth(list->txt, var);
+		q = beginWith(list->txt, var);
 		if (q && *q == '=')
 		{
 			free(list->txt);

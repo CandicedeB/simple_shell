@@ -24,7 +24,7 @@ void fixData(info_t *data, char **av)
 	data->fname = av[0];
 	if (data->arg)
 	{
-		data->argv = strtow(data->arg, " \t");
+		data->argv = strSplit(data->arg, " \t");
 		if (!data->argv)
 		{
 
@@ -59,11 +59,11 @@ void freeData(info_t *data, int all)
 		if (!data->cmd_buf)
 			free(data->arg);
 		if (data->env)
-			free_list(&(data->env));
+			freeList(&(data->env));
 		if (data->history)
-			free_list(&(data->history));
+			freeList(&(data->history));
 		if (data->alias)
-			free_list(&(data->alias));
+			freeList(&(data->alias));
 		freeStringArray(data->environ);
 			data->environ = NULL;
 		beFreed((void **)data->cmd_buf);

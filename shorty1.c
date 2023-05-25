@@ -1,10 +1,10 @@
 #include "shell.h"
 
 /**
- * stringLen - returns the length of a string
- * @s: the string whose length to check
+ * stringLen - length of a string
+ * @s: string
  *
- * Return: integer length of string
+ * Return: integer len of string
  */
 int stringLen(char *s)
 {
@@ -19,11 +19,11 @@ int stringLen(char *s)
 }
 
 /**
- * _strcmps - performs lexicogarphic comparison of two strangs.
- * @s1: the first strang
- * @s2: the second strang
+ * _strcmps - performs lexicogarphic comparison of two strings.
+ * @s1: the 1st strang
+ * @s2: the 2nd strang
  *
- * Return: negative if s1 < s2, positive if s1 > s2, zero if s1 == s2
+ * Return: -ve if s1 < s2, +ve if s1 > s2, zero if s1 == s2
  */
 int _strcmps(char *s1, char *s2)
 {
@@ -41,18 +41,18 @@ int _strcmps(char *s1, char *s2)
 }
 
 /**
- * beginWIth - checks if needle starts with haystack
- * @haystack: string to search
- * @needle: the substring to find
+ * beginWith - checks if viens starts with heart
+ * @heart: string to search
+ * @viens: the substring to find
  *
- * Return: address of next char of haystack or NULL
+ * Return: address of next char of heart or NULL
  */
-char *beginWIth(const char *haystack, const char *needle)
+char *beginWith(const char *heart, const char *viens)
 {
-	while (*needle)
-		if (*needle++ != *haystack++)
+	while (*viens)
+		if (*viens++ != *heart++)
 			return (NULL);
-	return ((char *)haystack);
+	return ((char *)heart);
 }
 
 /**

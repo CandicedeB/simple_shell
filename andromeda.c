@@ -12,7 +12,7 @@ int shellExit(info_t *data)
 
 	if (data->argv[1])
 	{
-		leaveVerify = _erratoi(data->argv[1]);
+		leaveVerify = errAtoi(data->argv[1]);
 		if (leaveVerify == -1)
 		{
 			data->worth = 2;
@@ -21,7 +21,7 @@ int shellExit(info_t *data)
 			eputword('\n');
 			return (1);
 		}
-		data->digit_err = _erratoi(data->argv[1]);
+		data->digit_err = errAtoi(data->argv[1]);
 		return (-2);
 	}
 	data->digit_err = -1;

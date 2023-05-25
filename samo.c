@@ -1,10 +1,9 @@
 #include "shell.h"
 
 /**
- *eputin - prints an input string
- * @txt: the string to be printed
- *
- * Return: Nothing
+ *eputin - Displays an input string
+ * @txt: the string to be displayed
+ * Return: none
  */
 void eputin(char *txt)
 {
@@ -20,11 +19,11 @@ void eputin(char *txt)
 }
 
 /**
- * eputword - writes the character c to stderr
- * @c: The character to print
+ * eputword - Outputs the character c to stderr
+ * @c: The character to be outputted
  *
  * Return: On success 1.
- * On error, -1 is returned, and errno is set appropriately.
+ * On error, returns -1 and sets errno accordingly.
  */
 int eputword(char c)
 {
@@ -42,12 +41,12 @@ int eputword(char c)
 }
 
 /**
- * putFd - writes the character c to given fd
- * @c: The character to print
- * @fd: The filedescriptor to write to
+ * putFd - Writes the character c to the specified file descriptor
+ * @c: The  character to be written
+ * @fd: The file descriptor to write to
  *
  * Return: On success 1.
- * On error, -1 is returned, and errno is set appropriately.
+ * On error, returns -1 and sets errno accordingly.
  */
 int putFd(char c, int fd)
 {
@@ -65,11 +64,12 @@ int putFd(char c, int fd)
 }
 
 /**
- *putsFdk - prints an input string
+ *putsFdk - Writes the input string to the specified file descriptor
  * @txt: the string to be printed
  * @fd: the filedescriptor to write to
  *
  * Return: the number of chars put
+ * On error, returns -1 and sets errno accordingly.
  */
 int putsFdk(char *txt, int fd)
 {

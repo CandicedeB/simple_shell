@@ -1,13 +1,13 @@
 #include "shell.h"
 
 /**
- * isCmd - determines if a file is an executable command
+ * thisCmd - shows if a file is an exe command
  * @data: the data struct
  * @path: path to the file
  *
  * Return: 1 if true, 0 otherwise
  */
-int isCmd(info_t *data, char *path)
+int thisCmd(info_t *data, char *path)
 {
 	struct stat st;
 
@@ -43,7 +43,7 @@ char *duplicationJustu(char *pathstr, int start, int stop)
 }
 
 /**
- * locate_path - finds this cmd in the PATH string
+ * locate_path - Locates this cmd in the PATH string
  * @data: the data struct
  * @pathstr: the PATH string
  * @cmd: the cmd to find
@@ -57,9 +57,9 @@ char *locate_path(info_t *data, char *pathstr, char *cmd)
 
 	if (!pathstr)
 		return (NULL);
-	if ((stringLen(cmd) > 2) && beginWIth(cmd, "./"))
+	if ((stringLen(cmd) > 2) && beginWith(cmd, "./"))
 	{
-		if (isCmd(data, cmd))
+		if (thisCmd(data, cmd))
 			return (cmd);
 	}
 	while (1)
@@ -74,7 +74,7 @@ char *locate_path(info_t *data, char *pathstr, char *cmd)
 				strConcat(path, "/");
 				strConcat(path, cmd);
 			}
-			if (isCmd(data, path))
+			if (thisCmd(data, path))
 				return (path);
 			if (!pathstr[a])
 				break;

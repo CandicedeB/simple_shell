@@ -1,18 +1,18 @@
 #include "shell.h"
 
 /**
- * hsh - main shell loop
- * @data: the parameter & return data struct
- * @av: the argument vector from main()
+ * hsh - my main shell loop
+ * @data: the parameter and return data struct
+ * @av: the argument vector
  *
- * Return: 0 on success, 1 on error, or error code
+ * Return: 0 success, 1 error, or error code
  */
 int hsh(info_t *data, char **av)
 {
 	ssize_t r = 0;
-	int builtin_ret = 0;
+	int innerRet = 0;
 
-	while (r != -1 && builtin_ret != -2)
+	while (r != -1 && innerRet != -2)
 	{
 		cleanData(data);
 		if (invlove(data))
@@ -22,8 +22,8 @@ int hsh(info_t *data, char **av)
 		if (r != -1)
 		{
 			fixData(data, av);
-			builtin_ret = find_builtin(data);
-			if (builtin_ret == -1)
+			innerRet = locateInner(data);
+			if (innerRet == -1)
 				lookForCmd(data);
 		}
 		else if (invlove(data))
@@ -34,28 +34,28 @@ int hsh(info_t *data, char **av)
 	freeData(data, 1);
 	if (!invlove(data) && data->worth)
 		exit(data->worth);
-	if (builtin_ret == -2)
+	if (innerRet == -2)
 	{
 		if (data->digit_err == -1)
 			exit(data->worth);
 		exit(data->digit_err);
 	}
-	return (builtin_ret);
+	return (innerRet);
 }
 
 /**
- * find_builtin - finds a builtin command
- * @data: the parameter & return data struct
+ * locateInner - Locate a builtin command
+ * @data: data struct
  *
  * Return: -1 if builtin not found,
  *			0 if builtin executed successfully,
  *			1 if builtin found but not successful,
  *			-2 if builtin signals exit()
  */
-int find_builtin(info_t *data)
+int locateInner(info_t *data)
 {
-	int a, built_in_ret = -1;
-	builtin_table builtintbl[] = {
+	int a, inBuiltRet = -1;
+	innerTable innerLib[] = {
 		{"exit", shellExit},
 		{"env", printMyEnv},
 		{"help", showHelp},
@@ -67,18 +67,18 @@ int find_builtin(info_t *data)
 		{NULL, NULL}
 	};
 
-	for (a = 0; builtintbl[a].type; a++)
-		if (_strcmps(data->argv[0], builtintbl[a].type) == 0)
+	for (a = 0; innerLib[a].type; a++)
+		if (_strcmps(data->argv[0], innerLib[a].type) == 0)
 		{
 			data->line_count++;
-			built_in_ret = builtintbl[a].func(data);
+			inBuiltRet = innerLib[a].func(data);
 			break;
 		}
-	return (built_in_ret);
+	return (inBuiltRet);
 }
 
 /**
- * lookForCmd - finds a command in PATH
+ * lookForCmd - locate a command in PATH
  * @data: the parameter & return data struct
  *
  * Return: void
@@ -109,7 +109,7 @@ void lookForCmd(info_t *data)
 	else
 	{
 		if ((invlove(data) || findEnv(data, "PATH=")
-			|| data->argv[0][0] == '/') && isCmd(data, data->argv[0]))
+			|| data->argv[0][0] == '/') && thisCmd(data, data->argv[0]))
 			forkingCmd(data);
 		else if (*(data->arg) != '\n')
 		{
@@ -138,7 +138,7 @@ void forkingCmd(info_t *data)
 	}
 	if (child_pid == 0)
 	{
-		if (execve(data->path, data->argv, get_environ(data)) == -1)
+		if (execve(data->path, data->argv, getEnviron(data)) == -1)
 		{
 			freeData(data, 1);
 			if (errno == EACCES)

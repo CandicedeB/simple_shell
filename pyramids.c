@@ -7,7 +7,7 @@
  */
 int printMyEnv(info_t *data)
 {
-	displayList_str(data->env);
+	showListString(data->env);
 	return (0);
 }
 
@@ -25,7 +25,7 @@ char *findEnv(info_t *data, const char *name)
 
 	while (list)
 	{
-		q = beginWIth(list->txt, name);
+		q = beginWith(list->txt, name);
 		if (q && *q)
 			return (q);
 		list = list->next;
