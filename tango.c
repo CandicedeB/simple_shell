@@ -1,62 +1,94 @@
 #include "shell.h"
 
 /**
- **_memset - fills memory with a constant byte
- *@s: the pointer to the memory area
- *@b: the byte to fill *s with
- *@n: the amount of bytes to be filled
- *Return: (s) a pointer to the memory area s
+ * **strtow - splits a string into words. Repeat delimiters are ignored
+ * @txt: the input string
+ * @d: the delimeter string
+ * Return: a pointer to an array of strings, or NULL on failure
  */
-char *_memset(char *s, char b, unsigned int n)
-{
-	unsigned int i;
 
-	for (i = 0; i < n; i++)
-		s[i] = b;
+char **strtow(char *txt, char *d)
+{
+	int a, b, k, m, numwords = 0;
+	char **s;
+
+	if (txt == NULL || txt[0] == 0)
+		return (NULL);
+	if (!d)
+		d = " ";
+	for (a = 0; txt[a] != '\0'; a++)
+		if (!we_believe(txt[a], d) && (we_believe(txt[a + 1], d) || !txt[a + 1]))
+			numwords++;
+
+	if (numwords == 0)
+		return (NULL);
+	s = malloc((1 + numwords) * sizeof(char *));
+	if (!s)
+		return (NULL);
+	for (a = 0, b = 0; b < numwords; b++)
+	{
+		while (we_believe(txt[a], d))
+			a++;
+		k = 0;
+		while (!we_believe(txt[a + k], d) && txt[a + k])
+			k++;
+		s[b] = malloc((k + 1) * sizeof(char));
+		if (!s[b])
+		{
+			for (k = 0; k < b; k++)
+				free(s[k]);
+			free(s);
+			return (NULL);
+		}
+		for (m = 0; m < k; m++)
+			s[b][m] = txt[a++];
+		s[b][m] = 0;
+	}
+	s[b] = NULL;
 	return (s);
 }
 
 /**
- * ffreed - frees a string of strings
- * @leave: string of strings
+ * **strtow2 - splits a string into words
+ * @txt: the input string
+ * @d: the delimeter
+ * Return: a pointer to an array of strings, or NULL on failure
  */
-void ffreed(char **leave)
+char **strtow2(char *txt, char d)
 {
-	char **a = leave;
+	int a, b, k, m, numwords = 0;
+	char **s;
 
-	if (!leave)
-		return;
-	while (*leave)
-		free(*leave++);
-	free(a);
-}
-
-/**
- * _realloc - reallocates a block of memory
- * @ptr: pointer to previous malloc'ated block
- * @old_size: byte size of previous block
- * @new_size: byte size of new block
- *
- * Return: pointer to da ol'block nameen.
- */
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
-{
-	char *p;
-
-	if (!ptr)
-		return (malloc(new_size));
-	if (!new_size)
-		return (free(ptr), NULL);
-	if (new_size == old_size)
-		return (ptr);
-
-	p = malloc(new_size);
-	if (!p)
+	if (txt == NULL || txt[0] == 0)
 		return (NULL);
-
-	old_size = old_size < new_size ? old_size : new_size;
-	while (old_size--)
-		p[old_size] = ((char *)ptr)[old_size];
-	free(ptr);
-	return (p);
+	for (a = 0; txt[a] != '\0'; a++)
+		if ((txt[a] != d && txt[a + 1] == d) ||
+		    (txt[a] != d && !txt[a + 1]) || txt[a + 1] == d)
+			numwords++;
+	if (numwords == 0)
+		return (NULL);
+	s = malloc((1 + numwords) * sizeof(char *));
+	if (!s)
+		return (NULL);
+	for (a = 0, b = 0; b < numwords; b++)
+	{
+		while (txt[a] == d && txt[a] != d)
+			a++;
+		k = 0;
+		while (txt[a + k] != d && txt[a + k] && txt[a + k] != d)
+			k++;
+		s[b] = malloc((k + 1) * sizeof(char));
+		if (!s[b])
+		{
+			for (k = 0; k < b; k++)
+				free(s[k]);
+			free(s);
+			return (NULL);
+		}
+		for (m = 0; m < k; m++)
+			s[b][m] = txt[a++];
+		s[b][m] = 0;
+	}
+	s[b] = NULL;
+	return (s);
 }

@@ -1,113 +1,63 @@
 #include "shell.h"
 
 /**
- * avenue - Display numbered history list
- * @data: pointer to the parameter struct
- *  Return: Always 0
+ **fillMemory  - fills memory with a constant byte
+ *@s: the pointer to the memory area
+ *@b: the byte to fill *s with
+ *@n: the amount of bytes to be filled
+ *Return: (s) a pointer to the memory area s
  */
-int avenue(info_t *data)
+char *fillMemory (char *s, char b, unsigned int n)
 {
-	print_linked_list(data->history);
-	return (0);
+	unsigned int a;
+
+	for (a = 0; a < n; a++)
+		s[a] = b;
+	return (s);
 }
 
 /**
- * behbeh - Set alias to a string
- * @data: pointer to the parameter struct
- * @str: the string
+ * freeStringArray  - frees a string of strings
+ * @pp: string of strings
+ */
+void freeStringArray (char **pp)
+{
+	char **a = pp;
+
+	if (!pp)
+		return;
+	while (*pp)
+		free(*pp++);
+	free(a);
+}
+
+/**
+ * reallocateMemory - reallocates a block of memory
+ * @word: pointer to previous malloc'ated block
+ * @old: byte size of previous block
+ * @new: byte size of fresh block
  *
- * Return:0 on success, 1 on failure
+ * Return: pointer to da ol'block nameen.
  */
-int behbeh(info_t *data, char *str)
+
+void *reallocateMemory(void *word, unsigned int old, unsigned int new)
 {
-	char *v, j;
-	int kuwe;
+	char *q;
 
-	v = _strchr(str, '=');
-	if (!v)
-		return (1);
-	j = *v;
-	*v = 0;
-	kuwe = delete_node_at_index(&(data->alias),
-		get_node_index(data->alias, find_node_with_prefix(data->alias, str, -1)));
-	*v = j;
-	return (kuwe);
-}
+	if (!word)
+		return (malloc(new));
+	if (!new)
+		return (free(word), NULL);
+	if (new == old)
+		return (word);
 
-/**
- * sondela - Set alias to a string
- * @data: pointer to the parameter struct
- * @str: the string alias
- *
- * Return: 0 on success, 1 on failure
- */
-int sondela(info_t *data, char *str)
-{
-	char *v;
+	q = malloc(new);
+	if (!q)
+		return (NULL);
 
-	v = _strchr(str, '=');
-	if (!v)
-		return (1);
-	if (!*++v)
-		return (behbeh(data, str));
-
-	behbeh(data, str);
-	return (add_node_end(&(data->alias), str, 0) == NULL);
-}
-
-/**
- * percolator - Print alias string
- * 
- * @list: the alias list
- *
- * Return: Always 0 on success, 1 on error
- */
-int percolator(list_t *list)
-{
-	char *v = NULL, *a = NULL;
-
-	if (list)
-	{
-		v = _strchr(list->str, '=');
-		for (a = list->str; a <= v; a++)
-			_putchar(*a);
-		_putchar('\'');
-		_puts(v + 1);
-		_puts("'\n");
-		return (0);
-	}
-	return (1);
-}
-
-/**
- * monaco - Mimic alias builtin
- * @data: pointer to the parameter struct
- *  Return: Always 0
- */
-int monaco(info_t *data)
-{
-	int i = 0;
-	char *v = NULL;
-	list_t *list = NULL;
-
-	if (data->argc == 1)
-	{
-		list = data->alias;
-		while (list)
-		{
-			percolator(list);
-			list = list->next;
-		}
-		return (0);
-	}
-	for (i = 1; data->argv[i]; i++)
-	{
-		v = _strchr(data->argv[i], '=');
-		if (v)
-			sondela(data, data->argv[i]);
-		else
-			percolator(find_node_with_prefix(data->alias, data->argv[i], '='));
-	}
-
-	return (0);
+	old = old < new ? old : new;
+	while (old--)
+		q[old] = ((char *)word)[old];
+	free(word);
+	return (q);
 }

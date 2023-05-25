@@ -1,39 +1,74 @@
 #include "shell.h"
-/**
- * _eputs - prints input to string
- * @blop: string to be printed
- *
- * Return: 0
- */
-void _eputs(char *blop)
-{
-	int j = 0;
 
-	if (!blop) /* checks if string is empty */
-		return; /* return instantly, if empty or NULL */
-	while (blop[j] != '\0') /* Iterate until NULL string is reached */
+/**
+ * clear_info - initializes info_t struct
+ * @data: struct address
+ */
+void clear_info(info_t *data)
+{
+	data->arg = NULL;
+	data->argv = NULL;
+	data->path = NULL;
+	data->argc = 0;
+}
+
+/**
+ * set_info - initializes info_t struct
+ * @data: struct address
+ * @av: argument vector
+ */
+void set_info(info_t *data, char **av)
+{
+	int a = 0;
+
+	data->fname = av[0];
+	if (data->arg)
 	{
-		_eputchar(blop[j]); /* calls function to print charcter of string */
-		j++; /* move to following charcter */
+		data->argv = strtow(data->arg, " \t");
+		if (!data->argv)
+		{
+
+			data->argv = malloc(sizeof(char *) * 2);
+			if (data->argv)
+			{
+				data->argv[0] = _strdupsd(data->arg);
+				data->argv[1] = NULL;
+			}
+		}
+		for (a = 0; data->argv && data->argv[a]; a++)
+			;
+		data->argc = a;
+
+		substituteAlias (data);
+		substituteVar(data);
 	}
 }
-/**
- * _eputchar - writes character n to STDERR
- * @n: character to print
- *
- * Return: Success 1, Error -1
- */
-int _eputchar(char n)
-{
-	static int k; /* keeps track of buffer index */
-	static char buf[BUFFER]; /* stores charcters */
 
-	if (n == BUFFER_FLUSHER || k >= BUFFER)
+/**
+ * free_info - frees info_t struct fields
+ * @data: struct address
+ * @all: true if freeing all fields
+ */
+void free_info(info_t *data, int all)
+{
+	freeStringArray (data->argv);
+	data->argv = NULL;
+	data->path = NULL;
+	if (all)
 	{
-		write(2, buf, k); /* writes content to STDERR and resets index */
-		k = 0;
+		if (!data->cmd_buf)
+			free(data->arg);
+		if (data->env)
+			free_list(&(data->env));
+		if (data->history)
+			free_list(&(data->history));
+		if (data->alias)
+			free_list(&(data->alias));
+		freeStringArray (data->environ);
+			data->environ = NULL;
+		beFreed((void **)data->cmd_buf);
+		if (data->readingFd > 2)
+			close(data->readingFd);
+		_putchar(BUFFER_FLUSHER);
 	}
-	if (n != BUFFER_FLUSHER)
-		buf[k++] = n; /* stores charcter in buffer */
-	return (1);
 }

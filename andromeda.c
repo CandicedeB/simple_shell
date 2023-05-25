@@ -1,87 +1,95 @@
 #include "shell.h"
 
 /**
- * oxford_circus - Function to print out the current environment
- * @data: pointer to the parameter struct
- * Return: Always 0
+ * shellExit - exits the shell
+ * @data: Structure containing relevant arguments for function
+ * Return: Exits the shell with a specific exit worth (0)
+ * if data.argv[0] is not "exit"
  */
-int oxford_circus(info_t *data)
+int shellExit(info_t *data)
 {
-	print_list_str(data->env);
+	int leaveVerify;
+
+	if (data->argv[1])
+	{
+		leaveVerify = _erratoi(data->argv[1]);
+		if (leaveVerify == -1)
+		{
+			data->worth = 2;
+			display_err(data, "Wrong number: ");
+			eputin(data->argv[1]);
+			eputword('\n');
+			return (1);
+		}
+		data->digit_err = _erratoi(data->argv[1]);
+		return (-2);
+	}
+	data->digit_err = -1;
+	return (-2);
+}
+
+/**
+ * changeDir - modifies the current directory of the process
+ * @data: Structure containing relevant arguments for the function
+ *  Return: Always 0
+ */
+int changeDir(info_t *data)
+{
+	char *s, *dir, fender[1024];
+	int fgdir_look;
+
+	s = getcwd(fender, 1024);
+	if (!s)
+		putin("TODO: >>getcwd failure emsg here<<\n");
+	if (!data->argv[1])
+	{
+		dir = findEnv(data, "HOME=");
+		if (!dir)
+			fgdir_look = /* TODO: what should this be? */
+				chdir((dir = findEnv(data, "PWD=")) ? dir : "/");
+		else
+			fgdir_look = chdir(dir);
+	}
+	else if (_strcmps(data->argv[1], "-") == 0)
+	{
+		if (!findEnv(data, "OLDPWD="))
+		{
+			putin(s);
+			_putchar('\n');
+			return (1);
+		}
+		putin(findEnv(data, "OLDPWD=")), _putchar('\n');
+		fgdir_look = /* TODO: what should this be? */
+			chdir((dir = findEnv(data, "OLDPWD=")) ? dir : "/");
+	}
+	else
+		fgdir_look = chdir(data->argv[1]);
+	if (fgdir_look == -1)
+	{
+		display_err(data, "can't cd to ");
+		eputin(data->argv[1]), eputword('\n');
+	}
+	else
+	{
+		fixEnv(data, "OLDPWD", findEnv(data, "PWD="));
+		fixEnv(data, "PWD", getcwd(fender, 1024));
+	}
 	return (0);
 }
 
 /**
- * mndsgn - Get value of environ variable
- * @data: pointer to the parameter struct
- * @text: env var text
- *
- * Return: the value
- */
-char *mndsgn(info_t *data, const char *text)
-{
-	list_t *list = data->env;
-	char *p;
-
-	while (list)
-	{
-		p = starts_with(list->text, text);
-		if (p && *p)
-			return (p);
-		list = list->next;
-	}
-	return (NULL);
-}
-
-/**
- * sibali - Initialize or modify env variable
- * @data: pointer to the parameter struct
- *  Return: Always 0
- */
-int sibali(info_t *data)
-{
-	if (data->argc != 3)
-	{
-		_eputs("Incorrect number of arguements\n");
-		return (1);
-	}
-	if (ottolenghi(data, data->argv[1], data->argv[2]))
-		return (0);
-	return (1);
-}
-
-/**
- * carluccio - Takes out an env variable
- * @data: pointer to the parameter struct
- *  Return: Always 0
- */
-int carluccio(info_t *data)
-{
-	int i;
-
-	if (data->argc == 1)
-	{
-		_eputs("Too few arguements.\n");
-		return (1);
-	}
-	for (i = 1; i <= data->argc; i++)
-		dunia(data, data->argv[i]);
-
-	return (0);
-}
-
-/**
- * coogie - Fills up env linked list
- * @data: pointer to the parameter struct
+ * showHelp - provides assistance and information
+ * @data: Structure containing relevant arguments for the function
  * Return: Always 0
  */
-int coogie(info_t *data)
+ 
+int showHelp(info_t *data)
 {
-	list_t *list = NULL;
-	size_t i;
+	char **arg_array;
 
-	for (i = 0; environs[i]; i++)
-		add_node_end(&list, environs[i], 0);
-	data->env = list;
+	arg_array = data->argv;
+	putin("help call works. Function not yet implemented \n");
+	if (0)
+		putin(*arg_array); /* temp att_unused workaround */
 	return (0);
 }
