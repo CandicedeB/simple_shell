@@ -15,3 +15,4 @@ If you're having trouble with the Simple Shell, don't worry! There are plenty of
 
 # Conclusion 🎉
 Thank you for checking out the Simple Shell project! We hope you have fun exploring the world of command-line interfaces and learning more about how your computer works. Happy coding! 🚀
+Good Luck.
