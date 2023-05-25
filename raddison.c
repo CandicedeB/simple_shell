@@ -20,7 +20,6 @@ char **getEnviron(info_t *data)
  * remEnv - Deletes an environment variable
  * @data:  Structure with potential arguments. Constant function prototype.
  * @var: the environment variable to be deleted
- * 
  * Return: 1 if the variable is successfully removed, 0 otherwise
  */
 int remEnv(info_t *data, char *var)

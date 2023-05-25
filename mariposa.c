@@ -115,7 +115,7 @@ ssize_t readFender(info_t *data, char *buffed, size_t *a)
  * getNextLine -  retrieves the next line of input from STDIN
  * @data: parameter struct
  * @word: address of pointer to fender, preallocated or NULL
- * @len: size of preallocated word fender if not NULL
+ * @length: size of preallocated word fender if not NULL
  *
  * Return: s
  */
