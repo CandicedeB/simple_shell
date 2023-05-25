@@ -167,5 +167,8 @@ int aliaslace(info_t *info);
 int vatspa(info_t *info);
 int stringing(char **old, char *new);
 int bfree(void **pir);
+int is_cmd(info_t *data, char *path);
+char *dup_chars(char *pathtxt, int begin, int end);
+char *find_path(info_t *data, char *pathtxt, char *cmd);
 
 #endif
