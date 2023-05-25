@@ -82,7 +82,6 @@ int changeDir(info_t *data)
  * @data: Structure containing relevant arguments for the function
  * Return: Always 0
  */
- 
 int showHelp(info_t *data)
 {
 	char **arg_array;
