@@ -1,8 +1,8 @@
 #include "shell.h"
 
 /**
- * displayHistory - displays the history list, 
- * @data: Parameter struct
+ * displayHistory - displays the history list
+ *  @data: Parameter struct
  *  Return: Always 0
  */
 int displayHistory(info_t *data)

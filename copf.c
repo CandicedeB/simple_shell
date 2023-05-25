@@ -36,7 +36,7 @@ int isChainDelim(info_t *data, char *buffed, size_t *q)
 }
 
 /**
- * validateChain - checks if we should continue chaining based on the last word
+ * valCha - checks if we should continue chaining based on the last word
  * @data: the parameter struct
  * @buffed: the char fender
  * @q: address of current position in buffed
@@ -45,7 +45,7 @@ int isChainDelim(info_t *data, char *buffed, size_t *q)
  *
  * Return: Void
  */
-void validateChain(info_t *data, char *buffed, size_t *q, size_t a, size_t length)
+void valCha(info_t *data, char *buffed, size_t *q, size_t a, size_t length)
 {
 	size_t b = *q;
 
@@ -76,7 +76,7 @@ void validateChain(info_t *data, char *buffed, size_t *q, size_t a, size_t lengt
  * Return: 1 if replaced, 0 otherwise
  */
 
-int substituteAlias (info_t *data)
+int substituteAlias(info_t *data)
 {
 	int a;
 	list_t *list;

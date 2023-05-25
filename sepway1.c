@@ -47,7 +47,7 @@ char **list_to_strings(list_t *head)
 			return (NULL);
 		}
 
-		txt = copyString (txt, list->txt);
+		txt = copyString(txt, list->txt);
 		strs[a] = txt;
 	}
 	strs[a] = NULL;

@@ -174,7 +174,7 @@ size_t displayList(const list_t *);
 list_t *node_begins(list_t *, char *, char);
 ssize_t get_node_index(list_t *, list_t *);
 int isChainDelim(info_t *, char *, size_t *);
-void validateChain(info_t *, char *, size_t *, size_t, size_t);
+void valCha(info_t *, char *, size_t *, size_t, size_t);
 int substituteAlias (info_t *);
 int substituteVar(info_t *);
 int substituteString(char **, char *);

@@ -18,7 +18,7 @@ char *get_history_file(info_t *data)
 	if (!buffed)
 		return (NULL);
 	buffed[0] = 0;
-	copyString (buffed, dir);
+	copyString(buffed, dir);
 	strConcat(buffed, "/");
 	strConcat(buffed, JIST_FILED);
 	return (buffed);

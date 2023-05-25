@@ -7,7 +7,7 @@
  *@n: the amount of bytes to be filled
  *Return: (s) a pointer to the memory area s
  */
-char *fillMemory (char *s, char b, unsigned int n)
+char *fillMemory(char *s, char b, unsigned int n)
 {
 	unsigned int a;
 
@@ -20,7 +20,7 @@ char *fillMemory (char *s, char b, unsigned int n)
  * freeStringArray  - frees a string of strings
  * @pp: string of strings
  */
-void freeStringArray (char **pp)
+void freeStringArray(char **pp)
 {
 	char **a = pp;
 

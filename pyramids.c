@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * Display - prints the current environment
+ * printMyEnv - prints the current environment
  * @data: Structure parameter
  * Return: Always 0
  */

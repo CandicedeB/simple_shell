@@ -7,7 +7,7 @@
  *
  * Return: pointer to end point
  */
-char *copyString (char *dest, char *place)
+char *copyString(char *dest, char *place)
 {
 	int a = 0;
 

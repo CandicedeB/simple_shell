@@ -67,7 +67,7 @@ ssize_t getInput(info_t *data)
 		b = a; /* init fresh iterator to current buffed position */
 		q = buffed + a; /* get pointer for return */
 
-		validateChain(data, buffed, &b, a, len);
+		valCha(data, buffed, &b, a, len);
 		while (b < len) /* iterate to semicolon or end */
 		{
 			if (isChainDelim(data, buffed, &b))
@@ -86,7 +86,7 @@ ssize_t getInput(info_t *data)
 		return (stringLen(q)); /* return len of current command */
 	}
 
-	*buffer_ps = buffed; /* else not a chain, pass back fender from getNextLine() */
+	*buffer_ps = buffed;
 	return (r); /* return len of fender from getNextLine() */
 }
 
@@ -99,7 +99,7 @@ ssize_t getInput(info_t *data)
  * Return: r
  */
 
-ssize_t readFender (info_t *data, char *buffed, size_t *a)
+ssize_t readFender(info_t *data, char *buffed, size_t *a)
 {
 	ssize_t r = 0;
 
@@ -133,7 +133,7 @@ int getNextLine(info_t *data, char **word, size_t *len)
 	if (a == len)
 		a = len = 0;
 
-	r = readFender (data, buffed, &len);
+	r = readFender(data, buffed, &len);
 	if (r == -1 || (r == 0 && len == 0))
 		return (-1);
 

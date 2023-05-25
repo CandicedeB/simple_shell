@@ -39,7 +39,7 @@ void fixData(info_t *data, char **av)
 			;
 		data->argc = a;
 
-		substituteAlias (data);
+		substituteAlias(data);
 		substituteVar(data);
 	}
 }
@@ -51,7 +51,7 @@ void fixData(info_t *data, char **av)
  */
 void freeData(info_t *data, int all)
 {
-	freeStringArray (data->argv);
+	freeStringArray(data->argv);
 	data->argv = NULL;
 	data->path = NULL;
 	if (all)
@@ -64,7 +64,7 @@ void freeData(info_t *data, int all)
 			free_list(&(data->history));
 		if (data->alias)
 			free_list(&(data->alias));
-		freeStringArray (data->environ);
+		freeStringArray(data->environ);
 			data->environ = NULL;
 		beFreed((void **)data->cmd_buf);
 		if (data->readingFd > 2)

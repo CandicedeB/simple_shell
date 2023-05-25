@@ -70,7 +70,7 @@ int fixEnv(info_t *data, char *var, char *value)
 	buffed = malloc(stringLen(var) + stringLen(value) + 2);
 	if (!buffed)
 		return (1);
-	copyString (buffed, var);
+	copyString(buffed, var);
 	strConcat(buffed, "=");
 	strConcat(buffed, value);
 	list = data->env;

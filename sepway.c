@@ -17,7 +17,7 @@ list_t *add_node(list_t **head, const char *txt, int num)
 	new_head = malloc(sizeof(list_t));
 	if (!new_head)
 		return (NULL);
-	fillMemory ((void *)new_head, 0, sizeof(list_t));
+	fillMemory((void *)new_head, 0, sizeof(list_t));
 	new_head->num = num;
 	if (txt)
 	{
@@ -52,7 +52,7 @@ list_t *add_node_finish(list_t **head, const char *txt, int num)
 	new_node = malloc(sizeof(list_t));
 	if (!new_node)
 		return (NULL);
-	fillMemory ((void *)new_node, 0, sizeof(list_t));
+	fillMemory((void *)new_node, 0, sizeof(list_t));
 	new_node->num = num;
 	if (txt)
 	{
