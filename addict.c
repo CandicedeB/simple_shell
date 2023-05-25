@@ -45,10 +45,11 @@ list_t *add_node(list_t **head, const char *text, int len)
  * Description: Adds new node at the end of a list_t list
  * @head: Pointer to pointer to the head node of the list
  * @text: String stored in the new node
+ * @num: Node index
  * Return: Address of the new element, or NULL if it failed
  */
 
-list_t *add_node_end(list_t **head, const char *text)
+list_t *add_node_end(list_t **head, const char *text, int num)
 {
 	list_t *new, *current;
 

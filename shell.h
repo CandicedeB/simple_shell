@@ -8,6 +8,8 @@
 #define BUFFER_FLUSHER -1
 #define CONVERT_UNSIGNED 2
 #define CONVERT_LOWERCASE 1
+#define ARCO_FILE ".simple_shell_history"
+#define ARCO_MAX 4096
 
 /* Library Used */
 #include <stdio.h>
@@ -36,23 +38,23 @@ typedef struct listnode
  * struct cmd_info - contains arguments to be passed into a function
  * @argv: an array of strings containing the command arguments
  * @readFd: the file descriptor from which to read line input
- * @lineCntFlag: set to 1 to count this line of input
+ * @lineCntFlag: set to 1 to lineCnt this line of input
  * @history: the history linked list node
  * @path: the path of the current command
- * @environ: custom modified copy of the env variables from the linked list env
+ * @environs: custom modified copy of the env variables from the linked list env
  * @arg: a string containing the command arguments generated from getline
- * @lineCnt: the line count of the input
+ * @lineCnt: the line lineCnt of the input
  * @alias: the alias linked list node
  * @envChanged: set to 1 if the environment variables were modified
  * @cmdBufType: the type of command buffer: CMD_type ||, &&, ;
  * @env: the linked list containing the local copy of the environment variables
  * @cmdBuf: a pointer to the command ; chain buffer, used for memory management
  * @status: the return status of the last executed command
- * @argc: the argument count
+ * @argc: the argument lineCnt
  * @fname: the filename of the program
  * @errNum: the error code for exit() calls
- * @histCount: the history line number count
- * @line_count: history of number count
+ * @histCount: the history line number lineCnt
+ * @line_count: history of number lineCnt
  */
 typedef struct cmd_info
 {
@@ -62,7 +64,7 @@ typedef struct cmd_info
 	int lineCntFlag;
 	list_t *history;
 	char *path;
-	char **environ;
+	char **environs;
 	char *arg;
 	unsigned int lineCnt;
 	list_t *alias;
@@ -76,6 +78,10 @@ typedef struct cmd_info
 	int errNum;
 	int histCount;
 } info_t;
+
+#define INFORMED_INIT \
+{NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, \
+	0, 0, 0}
 
 /*
  * Description: Header file for prototypes in Shell Project
@@ -104,9 +110,9 @@ void leap_samo(info_t *skip, char *jazz);
 int _print_d(int ima, int less);
 char *starts_with(const char *amfm, const char *copper);
 char *convert_number(long int num, int crackle, int snap);
-void gene(char *count);
+void gene(char *lineCnt);
 list_t *add_node(list_t **head, const char *text, int len);
-list_t *add_node_end(list_t **head, const char *text);
+list_t *add_node_end(list_t **head, const char *text, int num);
 size_t print_list_str(const list_t *head);
 int delete_node_at_index(list_t **head, unsigned int index);
 void free_list(list_t *head);
@@ -116,5 +122,34 @@ list_t *find_node_with_prefix(list_t *head, char *prefix, char next_char);
 size_t print_linked_list(const list_t *head);
 char **convert_list_to_strings(list_t *head);
 size_t list_length(const list_t *head);
+int wickham(info_t *data);
+char *arco_iris(info_t *data);
+int planet_giza(info_t *data);
+int pandemia(info_t *data, char *path, int lineCnt);
+int dinaledi(info_t *data);
+int oxford_circus(info_t *data);
+char *mndsgn(info_t *data, const char *text);
+int sibali(info_t *data);
+int carluccio(info_t *data);
+int coogie(info_t *data);
+char **fjord(info_t *data);
+int dunia(info_t *data, char *var);
+int ottolenghi(info_t *data, char *var, char *num);
+int shelly(info_t *data, char **av);
+int konke(info_t *data);
+void casa_cmd(info_t *data);
+void joachim_fork(info_t *data);
+int avenue(info_t *data);
+int behbeh(info_t *data, char *str);
+int sondela(info_t *data, char *str);
+int percolator(list_t *list);
+int monaco(info_t *data);
+char *_strncpy(char *dtsin, char *locat, int n);
+char *_strncat(char *dtsin, char *locat, int n);
+char *_strchr(char *s, char c);
+int my_deli(char c, char *limiter);
+void clear_info(info_t *info);
+void set_info(info_t *info, char **av);
+void free_info(info_t *info, int all);
 
 #endif
