@@ -16,7 +16,7 @@ ssize_t bufferInput(info_t *data, char **buffed, size_t *len)
 
 	if (!*len) /* if nothing left in the fender, fill it */
 	{
-		/*beFreed((void **)data->cmd_buf);*/
+		beFreed((void **)data->cmd_buf);
 		free(*buffed);
 		*buffed = NULL;
 		signal(SIGINT, blockCtrlC);
