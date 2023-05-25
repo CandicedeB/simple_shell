@@ -9,11 +9,11 @@
 
 int beFreed(void **word)
 {
-	if (word && *word)
+	if (word && *word) /* make sure pointer & memory points are correct */
 	{
-		free(*word);
+		free(*word); /* defragment memory that pointer is pointing to */
 		*word = NULL;
-		return (1);
+		return (1); /* return to 1 will show success on freed memory */
 	}
-	return (0);
+	return (0); /* return to 0 if pointer or memory in incorrect */
 }
