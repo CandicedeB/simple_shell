@@ -128,6 +128,7 @@ char **strtow(char *, char *);
 char **strTowed1(char *, char);
 char *fillMemory (char *, char, unsigned int);
 void freeStringArray (char **);
+int beFreed(void **word);
 void *reallocateMemory(void *, unsigned int, unsigned int);
 int invlove(info_t *);
 int we_believe(char, char *);

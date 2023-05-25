@@ -36,9 +36,9 @@ int hsh(info_t *data, char **av)
 		exit(data->worth);
 	if (builtin_ret == -2)
 	{
-		if (data->err_num == -1)
+		if (data->digit_err == -1)
 			exit(data->worth);
-		exit(data->err_num);
+		exit(data->digit_err);
 	}
 	return (builtin_ret);
 }
