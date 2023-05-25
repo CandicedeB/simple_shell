@@ -23,6 +23,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdarg.h>
+#include <error.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/wait.h>
