@@ -15,12 +15,13 @@ int errAtoi(char *s)
 		s++;  /* TODO: why does this make main return 255? */
 	for (a = 0;  s[a] != '\0'; a++)
 	{
-		if (s[a] >= '0' && s[a] <= '9')
+		if (s[a] >= '0' && s[a] <= '9') /* makes sure character is digit */
 		{
 			answer *= 10;
-			answer += (s[a] - '0');
+			answer += (s[a] - '0'); /* changes character to linked number value */
 			if (answer > INT_MAX)
-				return (-1);
+				/* determines whether accumulated value is more than int's maximum limit */
+				return (-1); /* Return -1 to indicates overflow */
 		}
 		else
 			return (-1);
@@ -36,13 +37,14 @@ int errAtoi(char *s)
  */
 void display_err(info_t *data, char *estr)
 {
-	eputin(data->fname);
+	eputin(data->fname); /* prints the file name found in data->fname */
+	eputin(": "); /* a colon and a space are printed */
+	printDD(data->line_count, STDERR_FILENO); /* outputs to standard error the */
+	/* line count that is recorded in data->line_count */
 	eputin(": ");
-	printDD(data->line_count, STDERR_FILENO);
+	eputin(data->argv[0]); /* displays the first argument from data->argv */
 	eputin(": ");
-	eputin(data->argv[0]);
-	eputin(": ");
-	eputin(estr);
+	eputin(estr); /* returns a string that was supplied as the estr argument */
 }
 
 /**
@@ -55,23 +57,23 @@ void display_err(info_t *data, char *estr)
 int printDD(int input, int fd)
 {
 	int (*__putchar)(char) = _putchar;
-	int a, count = 0;
+	int a, count = 0; /* 'a' & 'count' declared with starting values of 0 */
 	unsigned int _abs_, curr;
 
 	if (fd == STDERR_FILENO)
 		__putchar = eputword;
-	if (input < 0)
+	if (input < 0) /* determines whether the value of 'input' is smaller than 0 */
 	{
 		_abs_ = -input;
 		__putchar('-');
-		count++;
+		count++; /* Adds 1 to the 'count' variable */
 	}
 	else
-		_abs_ = input;
+		_abs_ = input; /* gives variable "_abs_" value of the argument "input" */
 	curr = _abs_;
 	for (a = 1000000000; a > 1; a /= 10)
 	{
-		if (_abs_ / a)
+		if (_abs_ / a) /* determines whether '_abs_' divided by 'a' is not zero */
 		{
 			__putchar('0' + curr / a);
 			count++;
@@ -96,14 +98,14 @@ char *changeNum(long int num, int base, int flags)
 {
 	static char *array;
 	static char fender[50];
-	char tive = 0;
-	char *word;
+	char tive = 0; /* char 'tive' variable was set to 0 */
+	char *word; /* variable with char pointer 'word' */
 	unsigned long n = num;
 
 	if (!(flags & CONVERT_UNSIGNED) && num < 0)
 	{
-		n = -num;
-		tive = '-';
+		n = -num; /* gives 'n' the negative of 'num' */
+		tive = '-'; /* the letter "-" is added to the word "tive" */
 
 	}
 	array = flags & CONVERT_LOWER ? "0123456789abcdef" : "0123456789ABCDEF";
@@ -112,8 +114,8 @@ char *changeNum(long int num, int base, int flags)
 
 	do	{
 		*--word = array[n % base];
-		n /= base;
-	} while (n != 0);
+		n /= base; /* divides 'n' by 'base' and returns the outcome to 'n' */
+	} while (n != 0); /* Loops so long as 'n' is not equal to 0 */
 
 	if (tive)
 		*--word = tive;
@@ -128,12 +130,12 @@ char *changeNum(long int num, int base, int flags)
  */
 void vanishComments(char *buffed)
 {
-	int a;
+	int a; /* 'a', an integer variable, is declared */
 
 	for (a = 0; buffed[a] != '\0'; a++)
 		if (buffed[a] == '#' && (!a || buffed[a - 1] == ' '))
 		{
 			buffed[a] = '\0';
-			break;
+			break; /* Breaks out of the loop after removing the comment */
 		}
 }
