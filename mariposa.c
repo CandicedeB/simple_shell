@@ -119,7 +119,7 @@ ssize_t readFender(info_t *data, char *buffed, size_t *a)
  *
  * Return: s
  */
-int getNextLine(info_t *data, char **word, size_t *len)
+int getNextLine(info_t *data, char **word, size_t *length)
 {
 	static char buffed[READ_BUFFER];
 	static size_t a, len;
@@ -128,8 +128,8 @@ int getNextLine(info_t *data, char **word, size_t *len)
 	char *q = NULL, *new_p = NULL, *c;
 
 	q = *word;
-	if (q && len)
-		s = *len;
+	if (q && length)
+		s = *length;
 	if (a == len)
 		a = len = 0;
 
@@ -152,8 +152,8 @@ int getNextLine(info_t *data, char **word, size_t *len)
 	a = k;
 	q = new_p;
 
-	if (len)
-		*len = s;
+	if (length)
+		*length = s;
 	*word = q;
 	return (s);
 }
