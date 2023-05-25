@@ -7,7 +7,7 @@
  */
 int printMyEnv(info_t *data)
 {
-	print_list_str(data->env);
+	displayList_str(data->env);
 	return (0);
 }
 
@@ -25,7 +25,7 @@ char *findEnv(info_t *data, const char *name)
 
 	while (list)
 	{
-		q = starts_with(list->txt, name);
+		q = beginWIth(list->txt, name);
 		if (q && *q)
 			return (q);
 		list = list->next;
@@ -34,12 +34,12 @@ char *findEnv(info_t *data, const char *name)
 }
 
 /**
- * _mysetenv - Initialize a fresh environment variable,
+ * setEnvVar - Initialize a fresh environment variable,
  *             or modify an existing one
  * @data: Structure parameter
  *  Return: Always 0
  */
-int _mysetenv(info_t *data)
+int setEnvVar(info_t *data)
 {
 	if (data->argc != 3)
 	{
@@ -52,12 +52,12 @@ int _mysetenv(info_t *data)
 }
 
 /**
- * _myunsetenv - Remove an environment variable
+ * removeEnvVar - Remove the env variable with shell
  * @data: Structure containing potential arguments. Used to maintain
  *        constant function prototype.
  *  Return: Always 0
  */
-int _myunsetenv(info_t *data)
+int removeEnvVar(info_t *data)
 {
 	int a;
 
@@ -67,24 +67,24 @@ int _myunsetenv(info_t *data)
 		return (1);
 	}
 	for (a = 1; a <= data->argc; a++)
-		_unsetenv(data, data->argv[a]);
+		remEnv(data, data->argv[a]);
 
 	return (0);
 }
 
 /**
- * populate_env_list - populates env linked list
+ * filEnvList - populates env linked list
  * @data: Structure containing potential arguments. Used to maintain
  *          constant function prototype.
  * Return: Always 0
  */
-int populate_env_list(info_t *data)
+int filEnvList(info_t *data)
 {
 	list_t *list = NULL;
 	size_t a;
 
 	for (a = 0; environ[a]; a++)
-		add_node_end(&list, environ[a], 0);
+		add_node_finish(&list, environ[a], 0);
 	data->env = list;
 	return (0);
 }

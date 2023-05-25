@@ -39,7 +39,7 @@ void display_err(info_t *data, char *estr)
 {
 	eputin(data->fname);
 	eputin(": ");
-	print_d(data->line_count, STDERR_FILENO);
+	printDD(data->line_count, STDERR_FILENO);
 	eputin(": ");
 	eputin(data->argv[0]);
 	eputin(": ");
@@ -47,13 +47,13 @@ void display_err(info_t *data, char *estr)
 }
 
 /**
- * print_d - function prints a decimal (integer) number (base 10)
+ * printDD - function prints a decimal (integer) number (base 10)
  * @input: the input
  * @fd: the filedescriptor to write to
  *
  * Return: number of characters printed
  */
-int print_d(int input, int fd)
+int printDD(int input, int fd)
 {
 	int (*__putchar)(char) = _putchar;
 	int a, count = 0;
@@ -86,14 +86,14 @@ int print_d(int input, int fd)
 }
 
 /**
- * convert_number - converter function, a clone of itoa
+ * chnageNum - converter function, a clone of itoa
  * @num: number
  * @base: base
  * @flags: argument flags
  *
  * Return: string
  */
-char *convert_number(long int num, int base, int flags)
+char *chnageNum(long int num, int base, int flags)
 {
 	static char *array;
 	static char fender[50];
@@ -107,7 +107,7 @@ char *convert_number(long int num, int base, int flags)
 		tive = '-';
 
 	}
-	array = flags & CONVERT_LOWERCASE ? "0123456789abcdef" : "0123456789ABCDEF";
+	array = flags & CONVERT_LOWER ? "0123456789abcdef" : "0123456789ABCDEF";
 	word = &fender[49];
 	*word = '\0';
 
@@ -122,12 +122,12 @@ char *convert_number(long int num, int base, int flags)
 }
 
 /**
- * remove_comments - function replaces first instance of '#' with '\0'
+ * vanishComments - function replaces first instance of '#' with '\0'
  * @buffed: address of the string to modify
  *
  * Return: Always 0;
  */
-void remove_comments(char *buffed)
+void vanishComments(char *buffed)
 {
 	int a;
 

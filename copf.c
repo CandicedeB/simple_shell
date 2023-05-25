@@ -117,13 +117,13 @@ int substituteVar(info_t *data)
 		if (!_strcmps(data->argv[a], "$?"))
 		{
 			substituteString(&(data->argv[a]),
-				_strdupsd(convert_number(data->worth, 10, 0)));
+				_strdupsd(chnageNum(data->worth, 10, 0)));
 			continue;
 		}
 		if (!_strcmps(data->argv[a], "$$"))
 		{
 			substituteString(&(data->argv[a]),
-				_strdupsd(convert_number(getpid(), 10, 0)));
+				_strdupsd(chnageNum(getpid(), 10, 0)));
 			continue;
 		}
 		list = node_begins(data->env, &data->argv[a][1], '=');

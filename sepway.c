@@ -34,14 +34,14 @@ list_t *add_node(list_t **head, const char *txt, int num)
 }
 
 /**
- * add_node_end - adds a list to the end of the list
+ * add_node_finish - adds a list to the end of the list
  * @head: address of pointer to head list
  * @txt: txt field of list
  * @num: list index used by history
  *
  * Return: size of list
  */
-list_t *add_node_end(list_t **head, const char *txt, int num)
+list_t *add_node_finish(list_t **head, const char *txt, int num)
 {
 	list_t *new_node, *list;
 
@@ -75,12 +75,12 @@ list_t *add_node_end(list_t **head, const char *txt, int num)
 }
 
 /**
- * print_list_str - prints only the txt element of a list_t linked list
+ * displayList_str - prints only the txt element of a list_t linked list
  * @h: pointer to first list
  *
  * Return: size of list
  */
-size_t print_list_str(const list_t *h)
+size_t displayList_str(const list_t *h)
 {
 	size_t a = 0;
 

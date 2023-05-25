@@ -1,10 +1,10 @@
 #include "shell.h"
 
 /**
- * clear_info - initializes info_t struct
+ * cleanData - initializes info_t struct
  * @data: struct address
  */
-void clear_info(info_t *data)
+void cleanData(info_t *data)
 {
 	data->arg = NULL;
 	data->argv = NULL;
@@ -13,11 +13,11 @@ void clear_info(info_t *data)
 }
 
 /**
- * set_info - initializes info_t struct
+ * fixData - initializes info_t struct
  * @data: struct address
  * @av: argument vector
  */
-void set_info(info_t *data, char **av)
+void fixData(info_t *data, char **av)
 {
 	int a = 0;
 
@@ -45,11 +45,11 @@ void set_info(info_t *data, char **av)
 }
 
 /**
- * free_info - frees info_t struct fields
+ * freeData - frees info_t struct fields
  * @data: struct address
  * @all: true if freeing all fields
  */
-void free_info(info_t *data, int all)
+void freeData(info_t *data, int all)
 {
 	freeStringArray (data->argv);
 	data->argv = NULL;

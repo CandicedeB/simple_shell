@@ -20,7 +20,7 @@ ssize_t bufferInput(info_t *data, char **buffed, size_t *length)
 		free(*buffed);
 		*buffed = NULL;
 		signal(SIGINT, blockCtrlC);
-#if USE_GETLINE
+#if GETLINES
 		r = getline(buffed, &len_p, stdin);
 #else
 		r = getNextLine(data, buffed, &len_p);
@@ -33,8 +33,8 @@ ssize_t bufferInput(info_t *data, char **buffed, size_t *length)
 				r--;
 			}
 			data->linecount_flag = 1;
-			remove_comments(*buffed);
-			build_history_list(data, *buffed, data->histcount++);
+			vanishComments(*buffed);
+			towerPisa(data, *buffed, data->histcount++);
 			/* if (strChr(*buffed, ';')) is this a command chain? */
 			{
 				*length = r;
@@ -83,7 +83,7 @@ ssize_t getInput(info_t *data)
 		}
 
 		*buffer_ps = q; /* pass back pointer to current command position */
-		return (_strlen(q)); /* return length of current command */
+		return (stringLen(q)); /* return length of current command */
 	}
 
 	*buffer_ps = buffed; /* else not a chain, pass back fender from getNextLine() */
@@ -105,7 +105,7 @@ ssize_t readFender (info_t *data, char *buffed, size_t *a)
 
 	if (*a)
 		return (0);
-	r = read(data->readingFd, buffed, READ_BUFFER_SIZE);
+	r = read(data->readingFd, buffed, READ_BUFFER);
 	if (r >= 0)
 		*a = r;
 	return (r);
@@ -121,7 +121,7 @@ ssize_t readFender (info_t *data, char *buffed, size_t *a)
  */
 int getNextLine(info_t *data, char **word, size_t *length)
 {
-	static char buffed[READ_BUFFER_SIZE];
+	static char buffed[READ_BUFFER];
 	static size_t a, length;
 	size_t k;
 	ssize_t r = 0, s = 0;
@@ -146,7 +146,7 @@ int getNextLine(info_t *data, char **word, size_t *length)
 	if (s)
 		concatenateStrings(new_p, buffed + a, k - a);
 	else
-		copyString(new_p, buffed + a, k - a + 1);
+		_copyString(new_p, buffed + a, k - a + 1);
 
 	s += k - a;
 	a = k;

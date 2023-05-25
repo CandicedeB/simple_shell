@@ -18,13 +18,13 @@ char **get_environ(info_t *data)
 }
 
 /**
- * _unsetenv - Remove an environment variable
+ * remEnv - Remove an environment variable
  * @data: Structure containing potential arguments. Used to maintain
  *        constant function prototype.
  *  Return: 1 on delete, 0 otherwise
  * @var: the string env var property
  */
-int _unsetenv(info_t *data, char *var)
+int remEnv(info_t *data, char *var)
 {
 	list_t *list = data->env;
 	size_t a = 0;
@@ -35,7 +35,7 @@ int _unsetenv(info_t *data, char *var)
 
 	while (list)
 	{
-		q = starts_with(list->txt, var);
+		q = beginWIth(list->txt, var);
 		if (q && *q == '=')
 		{
 			data->env_changed = delete_node_at_index(&(data->env), a);
@@ -67,16 +67,16 @@ int fixEnv(info_t *data, char *var, char *value)
 	if (!var || !value)
 		return (0);
 
-	buffed = malloc(_strlen(var) + _strlen(value) + 2);
+	buffed = malloc(stringLen(var) + stringLen(value) + 2);
 	if (!buffed)
 		return (1);
 	copyString (buffed, var);
-	_strcat(buffed, "=");
-	_strcat(buffed, value);
+	strConcat(buffed, "=");
+	strConcat(buffed, value);
 	list = data->env;
 	while (list)
 	{
-		q = starts_with(list->txt, var);
+		q = beginWIth(list->txt, var);
 		if (q && *q == '=')
 		{
 			free(list->txt);
@@ -86,7 +86,7 @@ int fixEnv(info_t *data, char *var, char *value)
 		}
 		list = list->next;
 	}
-	add_node_end(&(data->env), buffed, 0);
+	add_node_finish(&(data->env), buffed, 0);
 	free(buffed);
 	data->env_changed = 1;
 	return (0);

@@ -37,8 +37,8 @@ int main(int ac, char **av)
 		}
 		data->readingFd = fd;
 	}
-	populate_env_list(data);
-	read_history(data);
+	filEnvList(data);
+	cramHis(data);
 	hsh(data, av);
 	return (EXIT_SUCCESS);
 }

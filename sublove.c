@@ -14,23 +14,23 @@ char *get_history_file(info_t *data)
 	dir = findEnv(data, "HOME=");
 	if (!dir)
 		return (NULL);
-	buffed = malloc(sizeof(char) * (_strlen(dir) + _strlen(HIST_FILE) + 2));
+	buffed = malloc(sizeof(char) * (stringLen(dir) + stringLen(JIST_FILED) + 2));
 	if (!buffed)
 		return (NULL);
 	buffed[0] = 0;
 	copyString (buffed, dir);
-	_strcat(buffed, "/");
-	_strcat(buffed, HIST_FILE);
+	strConcat(buffed, "/");
+	strConcat(buffed, JIST_FILED);
 	return (buffed);
 }
 
 /**
- * write_history - creates a file, or appends to an existing file
+ * genHistory - creates a file, or appends to an existing file
  * @data: the parameter struct
  *
  * Return: 1 on success, else -1
  */
-int write_history(info_t *data)
+int genHistory(info_t *data)
 {
 	ssize_t fd;
 	char *filename = get_history_file(data);
@@ -45,21 +45,21 @@ int write_history(info_t *data)
 		return (-1);
 	for (list = data->history; list; list = list->next)
 	{
-		_putsfd(list->txt, fd);
-		_putfd('\n', fd);
+		putsFdk(list->txt, fd);
+		putFd('\n', fd);
 	}
-	_putfd(BUFFER_FLUSHER, fd);
+	putFd(BUFFER_FLUSHER, fd);
 	close(fd);
 	return (1);
 }
 
 /**
- * read_history - reads history from file
+ * cramHis - reads history from file
  * @data: the parameter struct
  *
  * Return: histcount on success, 0 otherwise
  */
-int read_history(info_t *data)
+int cramHis(info_t *data)
 {
 	int a, last = 0, linecount = 0;
 	ssize_t fd, rdlen, fsize = 0;
@@ -89,34 +89,34 @@ int read_history(info_t *data)
 		if (buffed[a] == '\n')
 		{
 			buffed[a] = 0;
-			build_history_list(data, buffed + last, linecount++);
+			towerPisa(data, buffed + last, linecount++);
 			last = a + 1;
 		}
 	if (last != a)
-		build_history_list(data, buffed + last, linecount++);
+		towerPisa(data, buffed + last, linecount++);
 	free(buffed);
 	data->histcount = linecount;
-	while (data->histcount-- >= HIST_MAX)
+	while (data->histcount-- >= JIST_OVERFLOW)
 		delete_node_at_index(&(data->history), 0);
-	renumber_history(data);
+	numKimbad(data);
 	return (data->histcount);
 }
 
 /**
- * build_history_list - adds entry to a history linked list
+ * towerPisa - adds entry to a history linked list
  * @data: Structure containing potential arguments. Used to maintain
  * @buffed: fender
  * @linecount: the history linecount, histcount
  *
  * Return: Always 0
  */
-int build_history_list(info_t *data, char *buffed, int linecount)
+int towerPisa(info_t *data, char *buffed, int linecount)
 {
 	list_t *list = NULL;
 
 	if (data->history)
 		list = data->history;
-	add_node_end(&list, buffed, linecount);
+	add_node_finish(&list, buffed, linecount);
 
 	if (!data->history)
 		data->history = list;
@@ -124,12 +124,12 @@ int build_history_list(info_t *data, char *buffed, int linecount)
 }
 
 /**
- * renumber_history - renumbers the history linked list after changes
+ * numKimbad - renumbers the history linked list after changes
  * @data: Structure containing potential arguments. Used to maintain
  *
  * Return: the fresh histcount
  */
-int renumber_history(info_t *data)
+int numKimbad(info_t *data)
 {
 	list_t *list = data->history;
 	int a = 0;

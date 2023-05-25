@@ -1,14 +1,14 @@
 #include "shell.h"
 
 /**
- **copyString - performs string copying
+ **_copyString - performs string copying
  *@dest: the destination string to copy to
  *@place: source string
  *@n: the number of characters to copy
  *Return: the resulting copied string
  */
 
-char *copyString(char *dest, char *place, int n)
+char *_copyString(char *dest, char *place, int n)
 {
 	int a, b;
 	char *s = dest;

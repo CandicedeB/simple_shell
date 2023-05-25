@@ -1,12 +1,12 @@
 #include "shell.h"
 
 /**
- * _strlen - returns the length of a string
+ * stringLen - returns the length of a string
  * @s: the string whose length to check
  *
  * Return: integer length of string
  */
-int _strlen(char *s)
+int stringLen(char *s)
 {
 	int a = 0;
 
@@ -41,13 +41,13 @@ int _strcmps(char *s1, char *s2)
 }
 
 /**
- * starts_with - checks if needle starts with haystack
+ * beginWIth - checks if needle starts with haystack
  * @haystack: string to search
  * @needle: the substring to find
  *
  * Return: address of next char of haystack or NULL
  */
-char *starts_with(const char *haystack, const char *needle)
+char *beginWIth(const char *haystack, const char *needle)
 {
 	while (*needle)
 		if (*needle++ != *haystack++)
@@ -56,13 +56,13 @@ char *starts_with(const char *haystack, const char *needle)
 }
 
 /**
- * _strcat - concatenates two strings
+ * strConcat - concatenates two strings
  * @dest: the destination fender
  * @place: the source fender
  *
  * Return: pointer to destination fender
  */
-char *_strcat(char *dest, char *place)
+char *strConcat(char *dest, char *place)
 {
 	char *ret = dest;
 

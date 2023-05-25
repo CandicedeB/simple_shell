@@ -49,12 +49,12 @@ char **strtow(char *txt, char *d)
 }
 
 /**
- * **strtow2 - splits a string into words
+ * **strTowed1 - splits a string into words
  * @txt: the input string
  * @d: the delimeter
  * Return: a pointer to an array of strings, or NULL on failure
  */
-char **strtow2(char *txt, char d)
+char **strTowed1(char *txt, char d)
 {
 	int a, b, k, m, numwords = 0;
 	char **s;

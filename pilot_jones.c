@@ -7,7 +7,7 @@
  */
 int displayHistory(info_t *data)
 {
-	print_list(data->history);
+	displayList(data->history);
 	return (0);
 }
 
@@ -52,7 +52,7 @@ int setAlias(info_t *data, char *txt)
 		return (unsetAlias(data, txt));
 
 	unsetAlias(data, txt);
-	return (add_node_end(&(data->alias), txt, 0) == NULL);
+	return (add_node_finish(&(data->alias), txt, 0) == NULL);
 }
 
 /**

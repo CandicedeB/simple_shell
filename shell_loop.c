@@ -14,24 +14,24 @@ int hsh(info_t *data, char **av)
 
 	while (r != -1 && builtin_ret != -2)
 	{
-		clear_info(data);
+		cleanData(data);
 		if (invlove(data))
 			putin("$ ");
 		eputword(BUFFER_FLUSHER);
 		r = getInput(data);
 		if (r != -1)
 		{
-			set_info(data, av);
+			fixData(data, av);
 			builtin_ret = find_builtin(data);
 			if (builtin_ret == -1)
-				find_cmd(data);
+				lookForCmd(data);
 		}
 		else if (invlove(data))
 			_putchar('\n');
-		free_info(data, 0);
+		freeData(data, 0);
 	}
-	write_history(data);
-	free_info(data, 1);
+	genHistory(data);
+	freeData(data, 1);
 	if (!invlove(data) && data->worth)
 		exit(data->worth);
 	if (builtin_ret == -2)
@@ -60,8 +60,8 @@ int find_builtin(info_t *data)
 		{"env", printMyEnv},
 		{"help", showHelp},
 		{"history", displayHistory},
-		{"setenv", _mysetenv},
-		{"unsetenv", _myunsetenv},
+		{"setenv", setEnvVar},
+		{"unsetenv", removeEnvVar},
 		{"cd", changeDir},
 		{"alias", mineAlias},
 		{NULL, NULL}
@@ -78,12 +78,12 @@ int find_builtin(info_t *data)
 }
 
 /**
- * find_cmd - finds a command in PATH
+ * lookForCmd - finds a command in PATH
  * @data: the parameter & return data struct
  *
  * Return: void
  */
-void find_cmd(info_t *data)
+void lookForCmd(info_t *data)
 {
 	char *path = NULL;
 	int a, k;
@@ -100,17 +100,17 @@ void find_cmd(info_t *data)
 	if (!k)
 		return;
 
-	path = find_path(data, findEnv(data, "PATH="), data->argv[0]);
+	path = locate_path(data, findEnv(data, "PATH="), data->argv[0]);
 	if (path)
 	{
 		data->path = path;
-		fork_cmd(data);
+		forkingCmd(data);
 	}
 	else
 	{
 		if ((invlove(data) || findEnv(data, "PATH=")
-			|| data->argv[0][0] == '/') && is_cmd(data, data->argv[0]))
-			fork_cmd(data);
+			|| data->argv[0][0] == '/') && isCmd(data, data->argv[0]))
+			forkingCmd(data);
 		else if (*(data->arg) != '\n')
 		{
 			data->worth = 127;
@@ -120,12 +120,12 @@ void find_cmd(info_t *data)
 }
 
 /**
- * fork_cmd - forks a an exec thread to run cmd
+ * forkingCmd - forks a an exec thread to run cmd
  * @data: the parameter & return data struct
  *
  * Return: void
  */
-void fork_cmd(info_t *data)
+void forkingCmd(info_t *data)
 {
 	pid_t child_pid;
 
@@ -140,7 +140,7 @@ void fork_cmd(info_t *data)
 	{
 		if (execve(data->path, data->argv, get_environ(data)) == -1)
 		{
-			free_info(data, 1);
+			freeData(data, 1);
 			if (errno == EACCES)
 				exit(126);
 			exit(1);

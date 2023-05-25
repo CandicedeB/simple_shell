@@ -74,9 +74,9 @@ void putin(char *txt)
 int _putchar(char c)
 {
 	static int a;
-	static char buffed[WRITE_BUF_SIZE];
+	static char buffed[WRITE_BUFFER];
 
-	if (c == BUFFER_FLUSHER || a >= WRITE_BUF_SIZE)
+	if (c == BUFFER_FLUSHER || a >= WRITE_BUFFER)
 	{
 		write(1, buffed, a);
 		a = 0;

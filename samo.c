@@ -29,9 +29,9 @@ void eputin(char *txt)
 int eputword(char c)
 {
 	static int a;
-	static char buffed[WRITE_BUF_SIZE];
+	static char buffed[WRITE_BUFFER];
 
-	if (c == BUFFER_FLUSHER || a >= WRITE_BUF_SIZE)
+	if (c == BUFFER_FLUSHER || a >= WRITE_BUFFER)
 	{
 		write(2, buffed, a);
 		a = 0;
@@ -42,19 +42,19 @@ int eputword(char c)
 }
 
 /**
- * _putfd - writes the character c to given fd
+ * putFd - writes the character c to given fd
  * @c: The character to print
  * @fd: The filedescriptor to write to
  *
  * Return: On success 1.
  * On error, -1 is returned, and errno is set appropriately.
  */
-int _putfd(char c, int fd)
+int putFd(char c, int fd)
 {
 	static int a;
-	static char buffed[WRITE_BUF_SIZE];
+	static char buffed[WRITE_BUFFER];
 
-	if (c == BUFFER_FLUSHER || a >= WRITE_BUF_SIZE)
+	if (c == BUFFER_FLUSHER || a >= WRITE_BUFFER)
 	{
 		write(fd, buffed, a);
 		a = 0;
@@ -65,13 +65,13 @@ int _putfd(char c, int fd)
 }
 
 /**
- *_putsfd - prints an input string
+ *putsFdk - prints an input string
  * @txt: the string to be printed
  * @fd: the filedescriptor to write to
  *
  * Return: the number of chars put
  */
-int _putsfd(char *txt, int fd)
+int putsFdk(char *txt, int fd)
 {
 	int a = 0;
 
@@ -79,7 +79,7 @@ int _putsfd(char *txt, int fd)
 		return (0);
 	while (*txt)
 	{
-		a += _putfd(*txt++, fd);
+		a += putFd(*txt++, fd);
 	}
 	return (a);
 }

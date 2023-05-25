@@ -38,7 +38,7 @@ char **list_to_strings(list_t *head)
 		return (NULL);
 	for (a = 0; list; list = list->next, a++)
 	{
-		txt = malloc(_strlen(list->txt) + 1);
+		txt = malloc(stringLen(list->txt) + 1);
 		if (!txt)
 		{
 			for (b = 0; b < a; b++)
@@ -56,18 +56,18 @@ char **list_to_strings(list_t *head)
 
 
 /**
- * print_list - prints all elements of a list_t linked list
+ * displayList - prints all elements of a list_t linked list
  * @h: pointer to first list
  *
  * Return: size of list
  */
-size_t print_list(const list_t *h)
+size_t displayList(const list_t *h)
 {
 	size_t a = 0;
 
 	while (h)
 	{
-		putin(convert_number(h->num, 10, 0));
+		putin(chnageNum(h->num, 10, 0));
 		_putchar(':');
 		_putchar(' ');
 		putin(h->txt ? h->txt : "(nil)");
@@ -92,7 +92,7 @@ list_t *node_begins(list_t *list, char *prefix, char c)
 
 	while (list)
 	{
-		q = starts_with(list->txt, prefix);
+		q = beginWIth(list->txt, prefix);
 		if (q && ((c == -1) || (*q == c)))
 			return (list);
 		list = list->next;
