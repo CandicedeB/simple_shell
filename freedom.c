@@ -24,7 +24,7 @@ void set_info(info_t *info, char **av)
 	info->fname = av[0];
 	if (info->arg)
 	{
-		info->argv = strtow(info->arg, " \t");
+		info->argv = strtok(info->arg, " \t");
 		if (!info->argv)
 		{
 
@@ -39,9 +39,26 @@ void set_info(info_t *info, char **av)
 			;
 		info->argc = i;
 
-		replace_alias(info);
-		replace_vars(info);
+		aliaslace(info);
+		vatspa(info);
 	}
+}
+
+/**
+ * bfree - frees address
+ * @ptr: address of the pointer to free
+ *
+ * Return: 1 if freed, otherwise 0.
+ */
+int bfree(void **pir)
+{
+	if (pir && *pir)
+	{
+		free(*pir);
+		*pir = NULL;
+		return (1);
+	}
+	return (0);
 }
 
 /**
@@ -51,7 +68,7 @@ void set_info(info_t *info, char **av)
  */
 void free_info(info_t *info, int all)
 {
-	ffree(info->argv);
+	ffreed(info->argv);
 	info->argv = NULL;
 	info->path = NULL;
 	if (all)
@@ -64,7 +81,7 @@ void free_info(info_t *info, int all)
 			free_list(&(info->history));
 		if (info->alias)
 			free_list(&(info->alias));
-		ffree(info->environs);
+		ffreed(info->environs);
 			info->environs = NULL;
 		bfree((void **)info->cmdBufType);
 		if (info->readFd > 2)

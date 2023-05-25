@@ -41,48 +41,44 @@ list_t *add_node(list_t **head, const char *text, int len)
 }
 
 /**
- * add_node_end - Entry point
- * Description: Adds new node at the end of a list_t list
- * @head: Pointer to pointer to the head node of the list
- * @text: String stored in the new node
- * @num: Node index
- * Return: Address of the new element, or NULL if it failed
+ * add_node_end - adds a node to the end of the list
+ * @head: address of pointer to head node
+ * @str: str field of node
+ * @num: node index used by history
+ *
+ * Return: size of list
  */
-
-list_t *add_node_end(list_t **head, const char *text, int num)
+list_t *add_node_end(list_t **head, const char *str, int num)
 {
-	list_t *new, *current;
+	list_t *fresh, *node;
 
 	if (!head)
 		return (NULL);
-	new = malloc(sizeof(list_t));
-	if (!new)
+
+	node = *head;
+	fresh = malloc(sizeof(list_t));
+	if (!fresh)
 		return (NULL);
-	/* Duplicate the string */
-	new->text = _strdup(text);
-	if (!new->text)
+	_memset((void *)fresh, 0, sizeof(list_t));
+	fresh->num = num;
+	if (str)
 	{
-		free(new);
-		return (NULL);
+		fresh->str = _strdup(str);
+		if (!fresh->str)
+		{
+			free(fresh);
+			return (NULL);
+		}
 	}
-	/* Count the number of characters within square brackets */
-	new->value = _strlen(text);
-	new->next = NULL;
-	/* If the list is empty, the new node becomes the head */
-	if (!*head)
+	if (node)
 	{
-		*head = new;
-		return (new);
+		while (node->next)
+			node = node->next;
+		node->next = fresh;
 	}
-	current = *head;
-	/* Traverse the list until the last node is reached */
-	while (current->next)
-	{
-		current = current->next;
-	}
-	/* Add the new node to the end of the list */
-	current->next = new;
-	return (new);
+	else
+		*head = fresh;
+	return (fresh);
 }
 
 /**
@@ -155,16 +151,20 @@ int delete_node_at_index(list_t **head, unsigned int index)
  * @head: A pointer to the head of the list
  */
 
-void free_list(list_t *head)
+void free_list(list_t **head)
 {
-	list_t *current;
+	list_t *node, *next_node, *head;
 
-	while (head)
+	if (!head || !*head)
+		return;
+	head = *head;
+	node = head;
+	while (node)
 	{
-		current = head->next;
-		free(head->text);
-		free(head);
-		head = current;
+		next_node = node->next;
+		free(node->str);
+		free(node);
+		node = next_node;
 	}
+	*head = NULL;
 }
-

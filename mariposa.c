@@ -9,7 +9,7 @@ char **fjord(info_t *data)
 {
 	if (!data->environs || data->envChanged)
 	{
-		data->environs = list_to_strings(data->env);
+		data->environs = convert_list_to_strings(data->env);
 		data->envChanged = 0;
 	}
 
@@ -33,7 +33,7 @@ int dunia(info_t *data, char *var)
 
 	while (listly)
 	{
-		p = starts_with(listly->str, var);
+		p = starts_with(listly->text, var);
 		if (p && *p == '=')
 		{
 			data->envChanged = delete_node_at_index(&(data->env), i);
@@ -72,11 +72,11 @@ int ottolenghi(info_t *data, char *var, char *num)
 	listly = data->env;
 	while (listly)
 	{
-		p = starts_with(listly->str, var);
+		p = starts_with(listly->text, var);
 		if (p && *p == '=')
 		{
-			free(listly->str);
-			listly->str = buf;
+			free(listly->text);
+			listly->text = buf;
 			data->envChanged = 1;
 			return (0);
 		}

@@ -10,6 +10,12 @@
 #define CONVERT_LOWERCASE 1
 #define ARCO_FILE ".simple_shell_history"
 #define ARCO_MAX 4096
+#define CMD_NORM 0
+#define CMD_OR 1
+#define CMD_AND 2
+#define CMD_CHAIN 3
+#define USE_GETLINE 0
+#define USE_STRTOK 0
 
 /* Library Used */
 #include <stdio.h>
@@ -112,10 +118,10 @@ char *starts_with(const char *amfm, const char *copper);
 char *convert_number(long int num, int crackle, int snap);
 void gene(char *lineCnt);
 list_t *add_node(list_t **head, const char *text, int len);
-list_t *add_node_end(list_t **head, const char *text, int num);
+list_t *add_node_end(list_t **head, const char *str, int num);
 size_t print_list_str(const list_t *head);
 int delete_node_at_index(list_t **head, unsigned int index);
-void free_list(list_t *head);
+void free_list(list_t **head);
 size_t list_len(const list_t *h);
 ssize_t get_node_index(list_t *head, list_t *node);
 list_t *find_node_with_prefix(list_t *head, char *prefix, char next_char);
@@ -151,5 +157,14 @@ int my_deli(char c, char *limiter);
 void clear_info(info_t *info);
 void set_info(info_t *info, char **av);
 void free_info(info_t *info, int all);
+char *_memset(char *s, char b, unsigned int n);
+void ffreed(char **leave);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+int is_chain(info_t *info, char *buf, size_t *p);
+void check_chain(info_t *info, char *buf, size_t *p, size_t i, size_t len);
+int aliaslace(info_t *info);
+int vatspa(info_t *info);
+int stringing(char **old, char *new);
+int bfree(void **pir);
 
 #endif

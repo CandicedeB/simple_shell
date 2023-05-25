@@ -25,7 +25,7 @@ char *mndsgn(info_t *data, const char *text)
 
 	while (list)
 	{
-		p = starts_with(list->str, text);
+		p = starts_with(list->text, text);
 		if (p && *p)
 			return (p);
 		list = list->next;
