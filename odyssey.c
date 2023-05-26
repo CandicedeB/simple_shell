@@ -11,9 +11,9 @@ char *fillMemory(char *s, char b, unsigned int n)
 {
 	unsigned int a;
 
-	for (a = 0; a < n; a++)
-		s[a] = b;
-	return (s);
+	for (a = 0; a < n; a++) /* Loop from 0 to 'n-1' & assign value to 'a' */
+		s[a] = b; /* Set value of 'b' to element at index 'a' in array 's' */
+	return (s); /* Return the modified array 's' */
 }
 
 /**
@@ -24,9 +24,9 @@ void freeStringArray(char **pp)
 {
 	char **a = pp;
 
-	if (!pp)
+	if (!pp) /* 'pp' is a null pointer, exit the function */
 		return;
-	while (*pp)
+	while (*pp) /* value pointed to by 'pp' is not null */
 		free(*pp++);
 	free(a);
 }
@@ -44,20 +44,20 @@ void *reallocateMemory(void *word, unsigned int old, unsigned int new)
 {
 	char *q;
 
-	if (!word)
-		return (malloc(new));
-	if (!new)
+	if (!word) /* 'word' is a null pointer */
+		return (malloc(new)); /* Allocate memory of size 'new' and return pointer */
+	if (!new) /* 'new' is zero */
 		return (free(word), NULL);
-	if (new == old)
-		return (word);
+	if (new == old) /* 'new' is equal to 'old' */
+		return (word); /* Return the original 'word' pointer without any changes */
 
-	q = malloc(new);
-	if (!q)
+	q = malloc(new); /* Allocate memory of size 'new' & assign pointer to 'q' */
+	if (!q) /* 'q' is a null pointer (allocation failed) */
 		return (NULL);
 
-	old = old < new ? old : new;
-	while (old--)
-		q[old] = ((char *)word)[old];
-	free(word);
+	old = old < new ? old : new; /* determine smaller size between 'old'&'new' */
+	while (old--) /* Iterate 'old' number of times */
+		q[old] = ((char *)word)[old]; /* Copy each character from 'word' to 'q' */
+	free(word); /* Free memory pointed to by 'word' */
 	return (q);
 }
