@@ -10,16 +10,17 @@
 char *getHistoryFile(info_t *data)
 {
 	char *buffed, *dir;
-
+	/* environment variable is not found, return NULL */
 	dir = findEnv(data, "HOME=");
 	if (!dir)
 		return (NULL);
+	/* Allocate memory for the concatenated path */
 	buffed = malloc(sizeof(char) * (stringLen(dir) + stringLen(JIST_FILED) + 2));
-	if (!buffed)
+	if (!buffed) /* memory allocation fails, return NULL */
 		return (NULL);
-	buffed[0] = 0;
-	copyString(buffed, dir);
-	strConcat(buffed, "/");
+	buffed[0] = 0; /* Initialize the buffer as an empty string */
+	copyString(buffed, dir); /* Copy the "dir" string to the buffer */
+	strConcat(buffed, "/"); /* Concatenate a forward slash to the buffer */
 	strConcat(buffed, JIST_FILED);
 	return (buffed);
 }
@@ -40,16 +41,17 @@ int genHistory(info_t *data)
 		return (-1);
 
 	fd = open(filename, O_CREAT | O_TRUNC | O_RDWR, 0644);
-	free(filename);
+	free(filename); /* Free the memory allocated for the filename */
+	/* Check if file descriptor is -1 (indicating an error in open file) */
 	if (fd == -1)
-		return (-1);
+		return (-1); /* If so, return -1 */
 	for (list = data->history; list; list = list->next)
 	{
-		putsFdk(list->txt, fd);
-		putFd('\n', fd);
+		putsFdk(list->txt, fd); /* Write text of each history entry to file */
+		putFd('\n', fd); /* Write a newline character to file */
 	}
 	putFd(BUFFER_FLUSHER, fd);
-	close(fd);
+	close(fd); /* Close the file */
 	return (1);
 }
 
@@ -68,37 +70,38 @@ int cramHis(info_t *data)
 
 	if (!filename)
 		return (0);
-
+	/* Open the file with the given filename in read-only mode */
 	fd = open(filename, O_RDONLY);
-	free(filename);
+	free(filename); /* Free memory allocated for filename */
 	if (fd == -1)
 		return (0);
-	if (!fstat(fd, &st))
-		fsize = st.st_size;
-	if (fsize < 2)
+	if (!fstat(fd, &st)) /* Retrieve information about file, including its size */
+		fsize = st.st_size; /* Store the file size in the variable "fsize" */
+	if (fsize < 2) /* Check if the file size is less than 2 */
 		return (0);
 	buffed = malloc(sizeof(char) * (fsize + 1));
-	if (!buffed)
+	if (!buffed) /* Check if memory allocation failed */
 		return (0);
-	rdlen = read(fd, buffed, fsize);
-	buffed[fsize] = 0;
+	rdlen = read(fd, buffed, fsize); /* Read contents of the file into buffer */
+	buffed[fsize] = 0; /* null-terminating character at end of the buffer */
 	if (rdlen <= 0)
 		return (free(buffed), 0);
-	close(fd);
-	for (a = 0; a < fsize; a++)
+	close(fd); /* Close the file */
+	for (a = 0; a < fsize; a++) /* Iterate through buffer to process each line */
 		if (buffed[a] == '\n')
 		{
 			buffed[a] = 0;
+			/* Process the line using the towerPisa function */
 			towerPisa(data, buffed + last, linecount++);
-			last = a + 1;
+			last = a + 1; /* Update the "last" variable to point to the next line */
 		}
-	if (last != a)
-		towerPisa(data, buffed + last, linecount++);
+	if (last != a) /* Check if there is a line remaining after the loop */
+		towerPisa(data, buffed + last, linecount++); /* Process the remaining line */
 	free(buffed);
 	data->histcount = linecount;
 	while (data->histcount-- >= JIST_OVERFLOW)
 		delNodeatIndex(&(data->history), 0);
-	numKimbad(data);
+	numKimbad(data); /* Perform further processing on the data */
 	return (data->histcount);
 }
 
@@ -114,13 +117,13 @@ int towerPisa(info_t *data, char *buffed, int linecount)
 {
 	list_t *list = NULL;
 
-	if (data->history)
-		list = data->history;
+	if (data->history) /* Check if data structure has existing history entries */
+		list = data->history; /* assign existing history list to "list" variable */
 	add_node_finish(&list, buffed, linecount);
-
+	/* Check if the data structure had no existing history entries */
 	if (!data->history)
 		data->history = list;
-	return (0);
+	return (0); /* Return 0 to indicate successful execution */
 }
 
 /**
@@ -136,8 +139,9 @@ int numKimbad(info_t *data)
 
 	while (list)
 	{
+		/* Assign a unique number to "num" field of each node and increment "a" */
 		list->num = a++;
-		list = list->next;
+		list = list->next; /* Move to the next node in the list */
 	}
 	return (data->histcount = a);
 }
