@@ -16,10 +16,11 @@ ssize_t bufferInput(info_t *data, char **buffed, size_t *len)
 
 	if (!*len) /* if nothing left in the fender, fill it */
 	{
+		/* Free the memory allocated for data->cmd_buf */
 		beFreed((void **)data->cmd_buf);
 		free(*buffed);
 		*buffed = NULL;
-		signal(SIGINT, blockCtrlC);
+		signal(SIGINT, blockCtrlC); /* Set signal handler for SIGINT to blockCtrlC */
 #if GETLINES
 		r = getline(buffed, &len_p, stdin);
 #else
@@ -30,15 +31,15 @@ ssize_t bufferInput(info_t *data, char **buffed, size_t *len)
 			if ((*buffed)[r - 1] == '\n')
 			{
 				(*buffed)[r - 1] = '\0'; /* remove trailing newline */
-				r--;
+				r--; /* Decrease the length of the string by 1 */
 			}
 			data->linecount_flag = 1;
-			vanishComments(*buffed);
+			vanishComments(*buffed); /* Remove comments from the input line */
 			towerPisa(data, *buffed, data->histcount++);
 			/* if (strChr(*buffed, ';')) is this a command chain? */
 			{
-				*len = r;
-				data->cmd_buf = buffed;
+				*len = r; /* Set the length of the line */
+				data->cmd_buf = buffed; /* Update data->cmd_buf to point to buffed */
 			}
 		}
 	}
@@ -101,10 +102,11 @@ ssize_t getInput(info_t *data)
 
 ssize_t readFender(info_t *data, char *buffed, size_t *a)
 {
-	ssize_t r = 0;
+	ssize_t r = 0; /* Variable to store result of read operation */
 
 	if (*a)
-		return (0);
+		return (0); /* value pointed to by 'a' is non-zero, return 0 */
+	/* Using maximum length of READ_BUFFER, read buffed from data->readingFd */
 	r = read(data->readingFd, buffed, READ_BUFFER);
 	if (r >= 0)
 		*a = r;
@@ -127,11 +129,11 @@ int getNextLine(info_t *data, char **word, size_t *length)
 	ssize_t r = 0, s = 0;
 	char *q = NULL, *new_p = NULL, *c;
 
-	q = *word;
+	q = *word; /* Give 'q' the value that 'word' is pointing at */
 	if (q && length)
 		s = *length;
 	if (a == len)
-		a = len = 0;
+		a = len = 0; /* 'a' is equal to 'len', set both 'a' and 'len' to 0 */
 
 	r = readFender(data, buffed, &len);
 	if (r == -1 || (r == 0 && len == 0))
@@ -148,13 +150,13 @@ int getNextLine(info_t *data, char **word, size_t *length)
 	else
 		_copyString(new_p, buffed + a, k - a + 1);
 
-	s += k - a;
-	a = k;
-	q = new_p;
+	s += k - a; /* Update 's' by adding the difference between 'k' and 'a' */
+	a = k; /* Update 'a' with 'k' */
+	q = new_p; /* Transfer 'new_p' to 'q' */
 
 	if (length)
 		*length = s;
-	*word = q;
+	*word = q; /* transfer 'q' to the value pointed to by 'word' */
 	return (s);
 }
 
@@ -166,7 +168,7 @@ int getNextLine(info_t *data, char **word, size_t *length)
  */
 void blockCtrlC(__attribute__((unused))int sig_num)
 {
-	putin("\n");
-	putin("$ ");
+	putin("\n"); /* output newline character should be printed */
+	putin("$ "); /* You should output the prompt symbol "$" */
 	_putchar(BUFFER_FLUSHER);
 }
