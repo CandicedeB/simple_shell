@@ -11,11 +11,11 @@ int thisCmd(info_t *data, char *path)
 {
 	struct stat st;
 
-	(void)data;
-	if (!path || stat(path, &st))
+	(void)data; /* turn off the "data" unused parameter alert */
+	if (!path || stat(path, &st)) /* if 'path' is NULL or'stat' fails */
 		return (0);
 
-	if (st.st_mode & S_IFREG)
+	if (st.st_mode & S_IFREG) /* regular file is indicated by file mode in'st' */
 	{
 		return (1);
 	}
@@ -36,8 +36,8 @@ char *duplicationJustu(char *pathstr, int start, int stop)
 	int a = 0, k = 0;
 
 	for (k = 0, a = start; a < stop; a++)
-		if (pathstr[a] != ':')
-			buffed[k++] = pathstr[a];
+		if (pathstr[a] != ':') /* character at 'pathstr[a]' is not ':' */
+			buffed[k++] = pathstr[a]; /* Copy character to 'buffed' and increment 'k' */
 	buffed[k] = 0;
 	return (buffed);
 }
@@ -57,28 +57,32 @@ char *locate_path(info_t *data, char *pathstr, char *cmd)
 
 	if (!pathstr)
 		return (NULL);
+	/* 'cmd' has length greater than 2 and starts with "./" */
 	if ((stringLen(cmd) > 2) && beginWith(cmd, "./"))
 	{
-		if (thisCmd(data, cmd))
+		if (thisCmd(data, cmd)) /* Verify "cmd" corresponds to a legit command */
 			return (cmd);
 	}
-	while (1)
+	while (1) /* Loop indefinitely */
 	{
+		/* end of 'pathstr' is reached or ':' delimiter is found */
 		if (!pathstr[a] || pathstr[a] == ':')
 		{
+			/* Utilizing "curr_pos" and "a," separate the substring from "pathstr" */
+			/* store it in "path" */
 			path = duplicationJustu(pathstr, curr_pos, a);
-			if (!*path)
+			if (!*path) /* Path is a null string */
 				strConcat(path, cmd);
 			else
 			{
 				strConcat(path, "/");
 				strConcat(path, cmd);
 			}
-			if (thisCmd(data, path))
+			if (thisCmd(data, path)) /* Verify 'path' relates to a valid command */
 				return (path);
-			if (!pathstr[a])
+			if (!pathstr[a]) /* end of 'pathstr' is reached */
 				break;
-			curr_pos = a;
+			curr_pos = a; /* Put the current position in 'curr_pos' */
 		}
 		a++;
 	}
