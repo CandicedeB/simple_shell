@@ -9,12 +9,13 @@ void eputin(char *txt)
 {
 	int a = 0;
 
-	if (!txt)
+	if (!txt) /* Check if 'txt' is null or empty */
 		return;
+	/* 'txt' array should be iterated through until null terminator is reached */
 	while (txt[a] != '\0')
 	{
 		eputword(txt[a]);
-		a++;
+		a++; /* counter variable 'a' to move to the next element of 'txt' */
 	}
 }
 
@@ -29,15 +30,15 @@ int eputword(char c)
 {
 	static int a;
 	static char buffed[WRITE_BUFFER];
-
+	/* character is a BUFFER_FLUSHER or buffer is full */
 	if (c == BUFFER_FLUSHER || a >= WRITE_BUFFER)
 	{
 		write(2, buffed, a);
-		a = 0;
+		a = 0; /* Reset the buffer position to 0 */
 	}
 	if (c != BUFFER_FLUSHER)
 		buffed[a++] = c;
-	return (1);
+	return (1); /* Return 1 to indicate success or completion of the function */
 }
 
 /**
@@ -55,11 +56,12 @@ int putFd(char c, int fd)
 
 	if (c == BUFFER_FLUSHER || a >= WRITE_BUFFER)
 	{
+		/* Write the contents of the buffer to the specified file descriptor */
 		write(fd, buffed, a);
-		a = 0;
+		a = 0; /* Reset the buffer position to 0 */
 	}
 	if (c != BUFFER_FLUSHER)
-		buffed[a++] = c;
+		buffed[a++] = c; /* keep character in buffer and increment buffer position */
 	return (1);
 }
 
@@ -75,10 +77,12 @@ int putsFdk(char *txt, int fd)
 {
 	int a = 0;
 
-	if (!txt)
+	if (!txt) /* 'txt' is null or empty, return 0 */
 		return (0);
-	while (*txt)
+	while (*txt) /* characters of 'txt' until a null terminator is encountered */
 	{
+		/* Call function 'putFd' with current character of 'txt' & increment */
+		/* the pointer, then add the result to 'a' */
 		a += putFd(*txt++, fd);
 	}
 	return (a);
