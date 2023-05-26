@@ -8,12 +8,13 @@
  */
 size_t list_len(const list_t *h)
 {
+	/* Loop while 'h' is not NULL (assuming 'h' is pointer to linked list node) */
 	size_t a = 0;
 
 	while (h)
 	{
-		h = h->next;
-		a++;
+		h = h->next; /* Move to the next node in the linked list */
+		a++; /* Increase the number */
 	}
 	return (a);
 }
@@ -34,9 +35,9 @@ char **list_to_strings(list_t *head)
 	if (!head || !a)
 		return (NULL);
 	strs = malloc(sizeof(char *) * (a + 1));
-	if (!strs)
+	if (!strs) /* memory allocation fails, return NULL */
 		return (NULL);
-	for (a = 0; list; list = list->next, a++)
+	for (a = 0; list; list = list->next, a++) /* Loop through the linked list */
 	{
 		txt = malloc(stringLen(list->txt) + 1);
 		if (!txt)
@@ -47,10 +48,10 @@ char **list_to_strings(list_t *head)
 			return (NULL);
 		}
 
-		txt = copyString(txt, list->txt);
-		strs[a] = txt;
+		txt = copyString(txt, list->txt); /* Copy content 'list->txt' to 'txt' */
+		strs[a] = txt; /* Assign 'txt' to the current position in 'strs' array */
 	}
-	strs[a] = NULL;
+	strs[a] = NULL; /* Set the last element of 'strs' array to NULL */
 	return (strs);
 }
 
@@ -67,12 +68,12 @@ size_t displayList(const list_t *h)
 
 	while (h)
 	{
-		putin(changeNum(h->num, 10, 0));
-		_putchar(':');
-		_putchar(' ');
+		putin(changeNum(h->num, 10, 0)); /* Print modified value of 'h->num' */
+		_putchar(':'); /* Print a colon character */
+		_putchar(' '); /* Print a space character */
 		putin(h->txt ? h->txt : "(nil)");
-		putin("\n");
-		h = h->next;
+		putin("\n"); /* Print a newline character */
+		h = h->next; /* Move to the next node in the linked list */
 		a++;
 	}
 	return (a);
@@ -92,8 +93,10 @@ list_t *node_begins(list_t *list, char *prefix, char c)
 
 	while (list)
 	{
+		/* 'list->txt' begins with 'prefix' and assign the result to 'q' */
 		q = beginWith(list->txt, prefix);
 		if (q && ((c == -1) || (*q == c)))
+			/* 'q' is not NULL & either 'c' is -1 or first character 'q' matches 'c' */
 			return (list);
 		list = list->next;
 	}
@@ -113,10 +116,10 @@ ssize_t get_node_index(list_t *head, list_t *list)
 
 	while (head)
 	{
-		if (head == list)
+		if (head == list) /* 'head' is equal to 'list', return current count 'a' */
 			return (a);
 		head = head->next;
 		a++;
 	}
-	return (-1);
+	return (-1); /* Return -1 if loop finishes without finding 'list' */
 }
