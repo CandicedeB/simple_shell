@@ -11,17 +11,17 @@
 int isChainDelim(info_t *data, char *buffed, size_t *q)
 {
 	size_t b = *q;
-
+	/* Examine characters at buffed[b] & buffed[b + 1] to see if they are '|' */
 	if (buffed[b] == '|' && buffed[b + 1] == '|')
 	{
-		buffed[b] = 0;
+		buffed[b] = 0; /* Replace buffed[b] with null */
 		b++;
-		data->cmdBufType = CMD_OR;
+		data->cmdBufType = CMD_OR; /* Set cmdBufType attribute of data to CMD_OR */
 	}
 	else if (buffed[b] == '&' && buffed[b + 1] == '&')
 	{
 		buffed[b] = 0;
-		b++;
+		b++; /* Increment b */
 		data->cmdBufType = CMD_AND;
 	}
 	else if (buffed[b] == ';') /* found end of this command */
@@ -31,7 +31,7 @@ int isChainDelim(info_t *data, char *buffed, size_t *q)
 	}
 	else
 		return (0);
-	*q = b;
+	*q = b; /* Update the value pointed to by q with b */
 	return (1);
 }
 
@@ -49,24 +49,24 @@ void valCha(info_t *data, char *buffed, size_t *q, size_t a, size_t length)
 {
 	size_t b = *q;
 
-	if (data->cmdBufType == CMD_AND)
+	if (data->cmdBufType == CMD_AND) /* Check if cmdBufType is CMD_AND */
 	{
-		if (data->worth)
+		if (data->worth) /* make sure worth is non-zero */
 		{
-			buffed[a] = 0;
-			b = length;
+			buffed[a] = 0; /* Replace buffed[a] with null */
+			b = length; /* Set b to value of length */
 		}
 	}
-	if (data->cmdBufType == CMD_OR)
+	if (data->cmdBufType == CMD_OR) /* make sure cmdBufType is CMD_OR */
 	{
-		if (!data->worth)
+		if (!data->worth) /* check worth is non-zero */
 		{
 			buffed[a] = 0;
 			b = length;
 		}
 	}
 
-	*q = b;
+	*q = b; /* Update the value that q has referenced with b */
 }
 
 /**
@@ -82,19 +82,20 @@ int substituteAlias(info_t *data)
 	list_t *list;
 	char *q;
 
-	for (a = 0; a < 10; a++)
+	for (a = 0; a < 10; a++) /* Loop from 0 to 9 */
 	{
 		list = node_begins(data->alias, data->argv[0], '=');
-		if (!list)
+		if (!list) /* Check if list is empty */
 			return (0);
-		free(data->argv[0]);
-		q = strChr(list->txt, '=');
+		free(data->argv[0]); /* Free memory allocated for data->argv[0] */
+		q = strChr(list->txt, '='); /* Find the first occurrence of '=' */
+		/* in list->txt and assign its address to q */
 		if (!q)
 			return (0);
-		q = _strdupsd(q + 1);
+		q = _strdupsd(q + 1); /* Duplicate string starting from q+1 & assign to q */
 		if (!q)
 			return (0);
-		data->argv[0] = q;
+		data->argv[0] = q; /* Update data->argv[0] with the new value in q */
 	}
 	return (1);
 }
@@ -108,13 +109,14 @@ int substituteVar(info_t *data)
 {
 	int a = 0;
 	list_t *list;
-
+	/* Loop through data->argv elements until the null element is encountered */
 	for (a = 0; data->argv[a]; a++)
 	{
+		/* check if element doesn't start with '$' or is an empty string */
 		if (data->argv[a][0] != '$' || !data->argv[a][1])
-			continue;
+			continue; /* Ahead to the following iteration */
 
-		if (!_strcmps(data->argv[a], "$?"))
+		if (!_strcmps(data->argv[a], "$?")) /* Check if the element is "$?" */
 		{
 			substituteString(&(data->argv[a]),
 				_strdupsd(changeNum(data->worth, 10, 0)));
@@ -127,12 +129,12 @@ int substituteVar(info_t *data)
 			continue;
 		}
 		list = node_begins(data->env, &data->argv[a][1], '=');
-		if (list)
+		if (list) /* Check if a matching node is found */
 		{
 			substituteString(&(data->argv[a]),
 				_strdupsd(strChr(list->txt, '=') + 1));
 			continue;
-		}
+		} /* Substitute the element with an empty string */
 		substituteString(&data->argv[a], _strdupsd(""));
 
 	}
@@ -148,7 +150,7 @@ int substituteVar(info_t *data)
  */
 int substituteString(char **dry, char *fresh)
 {
-	free(*dry);
-	*dry = fresh;
+	free(*dry); /* Free the memory pointed to by the pointer dry */
+	*dry = fresh; /* fresh value should be added to the value pointed to by dry */
 	return (1);
 }
