@@ -14,7 +14,7 @@ list_t *add_node(list_t **head, const char *txt, int num)
 
 	if (!head)
 		return (NULL);
-	new_head = malloc(sizeof(list_t));
+	new_head = malloc(sizeof(list_t)); /* assign memory for new node */
 	if (!new_head)
 		return (NULL);
 	fillMemory((void *)new_head, 0, sizeof(list_t));
@@ -28,8 +28,8 @@ list_t *add_node(list_t **head, const char *txt, int num)
 			return (NULL);
 		}
 	}
-	new_head->next = *head;
-	*head = new_head;
+	new_head->next = *head; /* Set new nodes 'next' refr to current head */
+	*head = new_head; /* Affix the new node to the head pointer as necessary */
 	return (new_head);
 }
 
@@ -45,17 +45,18 @@ list_t *add_node_finish(list_t **head, const char *txt, int num)
 {
 	list_t *new, *list;
 
-	if (!head)
+	if (!head) /* amke sure head pointer is NULL */
 		return (NULL);
 
-	list = *head;
-	new = malloc(sizeof(list_t));
+	list = *head; /* list should be given head pointers value */
+	new = malloc(sizeof(list_t)); /* assign memory for new node */
 	if (!new)
 		return (NULL);
 	fillMemory((void *)new, 0, sizeof(list_t));
-	new->num = num;
+	new->num = num; /* new node's "num" value should be set */
 	if (txt)
 	{
+		/* 'txt' should be duplicated and assigned to 'new->txt' */
 		new->txt = _strdupsd(txt);
 		if (!new->txt)
 		{
@@ -63,14 +64,14 @@ list_t *add_node_finish(list_t **head, const char *txt, int num)
 			return (NULL);
 		}
 	}
-	if (list)
+	if (list) /* make sure list isn't empty */
 	{
-		while (list->next)
+		while (list->next) /* Navigate to the list's conclusion */
 			list = list->next;
 		list->next = new;
 	}
 	else
-		*head = new;
+		*head = new; /* head pointer should be updated to new node, list is empty */
 	return (new);
 }
 
@@ -83,13 +84,15 @@ list_t *add_node_finish(list_t **head, const char *txt, int num)
 size_t showListString(const list_t *h)
 {
 	size_t a = 0;
-
+	/* Set the initial value of the counter 'a' to 0 */
 	while (h)
 	{
+		/* cycle through the list until 'h' is replaced with NULL */
+		/* If H->TXT is not NULL, use "(nil)" to invoke the "putin" function */
 		putin(h->txt ? h->txt : "(nil)");
-		putin("\n");
+		putin("\n"); /* Make a newline character */
 		h = h->next;
-		a++;
+		a++; /* Adjust the counter 'a' */
 	}
 	return (a);
 }
@@ -109,26 +112,30 @@ int delNodeatIndex(list_t **head, unsigned int index)
 	if (!head || !*head)
 		return (0);
 
-	if (!index)
+	if (!index) /* make sure index is 0 */
 	{
+		/* Delete the list's initial node if the index is 0 */
+		/* 'list' should be given the head pointer's value */
 		list = *head;
 		*head = (*head)->next;
 		free(list->txt);
 		free(list);
-		return (1);
+		return (1); /* Return 1 to signify that the removal was successful */
 	}
 	list = *head;
 	while (list)
 	{
-		if (a == index)
+		if (a == index) /* Verify that index 'a' matches the requested index */
 		{
+			/* Delete the node if the index matches */
 			prev_node->next = list->next;
 			free(list->txt);
 			free(list);
 			return (1);
 		}
 		a++;
-		prev_node = list;
+		prev_node = list; /* The 'prev_node' pointer should */
+		/* be updated to the current node */
 		list = list->next;
 	}
 	return (0);
@@ -143,17 +150,19 @@ int delNodeatIndex(list_t **head, unsigned int index)
 void freeList(list_t **headPtr)
 {
 	list_t *list, *next_node, *head;
-
+	/* Verify whether the list is empty or the headPtr contains NULL */
 	if (!headPtr || !*headPtr)
 		return;
 	head = *headPtr;
 	list = head;
-	while (list)
+	while (list) /* go over the list and release each node's memory */
 	{
+		/* After releasing the current node, save the pointer for the */
+		/* following node to prevent losing it */
 		next_node = list->next;
 		free(list->txt);
 		free(list);
 		list = next_node;
-	}
+	} /* set head pointer to NULL */
 	*headPtr = NULL;
 }
