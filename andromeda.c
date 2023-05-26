@@ -10,21 +10,21 @@ int shellExit(info_t *data)
 {
 	int leaveVerify;
 
-	if (data->argv[1])
+	if (data->argv[1]) /* make sure argv[1] exists */
 	{
-		leaveVerify = errAtoi(data->argv[1]);
-		if (leaveVerify == -1)
+		leaveVerify = errAtoi(data->argv[1]); /* argv[1] -> integer conversion */
+		if (leaveVerify == -1)  /* Analyze any failed conversions */
 		{
-			data->worth = 2;
+			data->worth = 2; /* Set the value attribute of the data to 2 */
 			display_err(data, "Wrong number: ");
-			eputin(data->argv[1]);
-			eputword('\n');
+			eputin(data->argv[1]); /* Print argv[1] */
+			eputword('\n'); /* Put a newline in your text */
 			return (1);
-		}
+		} /* Put argv[1] in digit_err after converting it to an integer */
 		data->digit_err = errAtoi(data->argv[1]);
 		return (-2);
 	}
-	data->digit_err = -1;
+	data->digit_err = -1; /* Place a -1 in digit_err */
 	return (-2);
 }
 
@@ -38,23 +38,23 @@ int changeDir(info_t *data)
 	char *s, *dir, fender[1024];
 	int fgdir_look;
 
-	s = getcwd(fender, 1024);
+	s = getcwd(fender, 1024); /* Obtain current working directory, save to s */
 	if (!s)
 		putin("TODO: >>getcwd failure emsg here<<\n");
-	if (!data->argv[1])
+	if (!data->argv[1]) /* Verify whether argv[1] is given */
 	{
-		dir = findEnv(data, "HOME=");
+		dir = findEnv(data, "HOME="); /* Find value of environment variable HOME */
 		if (!dir)
 			fgdir_look = /* TODO: what should this be? */
 				chdir((dir = findEnv(data, "PWD=")) ? dir : "/");
 		else
 			fgdir_look = chdir(dir);
 	}
-	else if (_strcmps(data->argv[1], "-") == 0)
+	else if (_strcmps(data->argv[1], "-") == 0) /* Check if argv[1] is "-" */
 	{
 		if (!findEnv(data, "OLDPWD="))
 		{
-			putin(s);
+			putin(s); /* The working directory is printed right now */
 			_putchar('\n');
 			return (1);
 		}
@@ -86,7 +86,7 @@ int showHelp(info_t *data)
 {
 	char **arg_array;
 
-	arg_array = data->argv;
+	arg_array = data->argv; /* Arg_array should receive the argv pointer */
 	putin("help call works. Function not yet implemented \n");
 	if (0)
 		putin(*arg_array); /* temp att_unused workaround */
